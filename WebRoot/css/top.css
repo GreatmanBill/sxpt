@@ -1,0 +1,40 @@
+#nav-top{
+	height:100%;
+}
+
+#nav-top h2, #nav-main,#nav-main li, #user{
+	float:left;
+}
+
+#nav-top h2{
+	padding:0 0 0 50px;
+	height:100px;
+	line-height:100px;
+	color:#FEFDFA;
+}
+
+#nav-main{
+	padding:80px 0 0 200px;
+	color:#FEFDFA;
+}
+
+#nav-main li{
+	width:80px;
+	text-align:center;
+}
+
+#nav-main li a{
+	color:#FEFDFA;
+}
+
+#nav-main span{
+	display:inline-block;
+	width:5px;
+	float:left;
+}
+
+#user{
+	float:right;
+	padding:10px 30px 0 0;
+	color:#FEFDFA;
+}
