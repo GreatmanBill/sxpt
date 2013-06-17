@@ -8,6 +8,14 @@
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
+  	<servlet-name>InReportServlet</servlet-name>
+  	<servlet-class>com.sxpt.controller.InReportServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>InReportServlet</servlet-name>
+  	<url-pattern>/updateInReport</url-pattern>
+  </servlet-mapping>
+  <servlet>
   	<servlet-name>LoginServlet</servlet-name>
   	<servlet-class>com.sxpt.controller.LoginServlet</servlet-class>
   </servlet>
