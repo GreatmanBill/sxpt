@@ -1,0 +1,51 @@
+body{
+	background:#fff;
+}
+
+#leadStu{
+	padding:50px 0 0 30px;
+}
+
+label{
+	display:inline-block;
+	width:80px;
+	text-align:right;
+}
+
+.fileInput{
+	display:inline-block;
+	width:150px;
+	margin: 0 0 0 5px;
+	padding:2px;
+}
+
+.fileSub{
+	display:inline-block;
+	width:50px;
+	padding:2px;
+}
+
+.text{
+	display:inline-block;
+	width:150px;
+	margin: 0 0 0 5px;
+}
+
+.manualLead{
+	padding:50px 0 0 0;
+}
+
+.manualLead p{
+	line-height:20px;
+	margin: 5px 0 0 0 ;
+}
+
+.sub, .res{
+	display:inline-block;
+	width:50px;
+	padding:2px;
+}
+
+p.lastLead{
+	padding:0 0 0 80px;
+}

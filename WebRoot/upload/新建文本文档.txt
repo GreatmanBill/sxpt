@@ -1,0 +1,41 @@
+充值表
+charge(
+	id int,
+	char(20) phone,
+	int charge_money
+	int is_pay
+	int type //1 是中国移动，0是中国联通
+	date day
+)
+
+资金统计
+capital{
+	date day;
+	int last_remain
+	int new_income
+	int tatal
+	int remained
+	int type   //1是中国移动， 0是中国联通
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
