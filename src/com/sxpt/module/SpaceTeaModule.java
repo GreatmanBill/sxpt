@@ -66,8 +66,11 @@ public class SpaceTeaModule {
 		System.out.println("leadInTea: "+sql);
 		
 		try {
-			result = this.statement.executeUpdate(sql);
-			
+			try{
+				result = this.statement.executeUpdate(sql);
+			} catch(MySQLIntegrityConstraintViolationException e){
+				return -10;
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

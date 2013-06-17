@@ -1,0 +1,3 @@
+tname,t_direct,tsex
+杨杰明,java,男
+张老师,c#,女
