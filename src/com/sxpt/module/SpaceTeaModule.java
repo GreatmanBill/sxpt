@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.sxpt.classes.DBConnection;
 
@@ -30,7 +33,7 @@ public class SpaceTeaModule {
 		
 		int result = 0;
 		
-		String sql = "insert into student(sno, sname, sclass, staPsw, bid) " +
+		String sql = "insert into student(sno, sname, sclass, spsw, bid) " +
 				"values "+students;
 		
 		System.out.println("leadInStu: "+sql);
@@ -101,6 +104,32 @@ public class SpaceTeaModule {
 		}
 		
 		return result;
+	}
+	
+	public ArrayList<HashMap<String, Object>> getAllBatch(){
+		
+		int result = 0;
+		
+		String sql = "select * from batch order by bid desc";
+		
+		System.out.println(sql);
+		ArrayList<HashMap<String, Object>> batchs = null;
+		HashMap<String, Object> temp = null;
+		try {
+			ResultSet rs = this.statement.executeQuery(sql);
+			batchs = new ArrayList<HashMap<String, Object>>();
+			temp = new HashMap<String, Object>();
+			while(rs.next()){
+				temp.put("bid", rs.getInt("bid"));
+				temp.put("bname", rs.getString("bname"));
+				batchs.add(temp);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return batchs;
 	}
 	
 	/**

@@ -40,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		d.add(11,0,'用户管理','example01.html','Pictures I\'ve taken over the years','','','images/imgfolder.gif');
 		d.add(12,11,'教师账号管理','example01.html','Pictures of Gullfoss and Geysir');
-		d.add(13,11,'学生账号管理','example01.html','Pictures of Gullfoss and Geysir');
+		d.add(13,11,'学生账号管理','leadStu.jsp','Pictures of Gullfoss and Geysir','right');
 		d.add(14,11,'密码初始化','example01.html','Pictures of Gullfoss and Geysir');
 		
 		d.add(15,0,'信息管理','example01.html');

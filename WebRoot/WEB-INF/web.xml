@@ -16,5 +16,13 @@
   	<url-pattern>/login</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+  	<servlet-name>LeadStuServlet</servlet-name>
+  	<servlet-class>com.sxpt.controller.LeadStuServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>LeadStuServlet</servlet-name>
+  	<url-pattern>/leadStu</url-pattern>
+  </servlet-mapping>
   
 </web-app>
