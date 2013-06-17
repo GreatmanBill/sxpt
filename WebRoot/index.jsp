@@ -30,7 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div id="left">
 				<div id="left-top">
 					<h3>系统登录</h3>
-					<form action="" method="post">
+					<form action="login" method="get">
 						<p>
 							<label for="identity">身份</label>
 							<select name = "identity" id="identity">
@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</p>
 						
 						<p>
-							<label for="username">姓名</label>
+							<label for="username">账号</label>
 							<input name="username" id="username" type="text" />
 						</p>
 						

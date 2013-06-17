@@ -1,15 +1,14 @@
 package com.sxpt.module;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 
-import com.mysql.jdbc.Connection;
 import com.sxpt.classes.DBConnection;
 import com.sxpt.classes.Student;
 import com.sxpt.classes.Teacher;
-
 /**
  * 该类用于对实训平台首页的数据进行管理
  * @author zhang
@@ -61,6 +60,7 @@ public class SxptModule {
 					stu.setType(0);
 					break;
 	            }
+				user = new HashMap<String, Object>();
 				user.put("type", 0);
 				user.put("student", stu);
 				
@@ -84,6 +84,7 @@ public class SxptModule {
 					tea.setType(rs.getInt("type"));
 					break;
 				}
+				user = new HashMap<String, Object>();
 				user.put("type", type);
 				user.put("teacher", tea);
 			} catch (SQLException e) {

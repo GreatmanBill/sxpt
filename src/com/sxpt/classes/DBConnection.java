@@ -16,7 +16,7 @@ public class DBConnection {
 	public Statement statement= null;
 	public String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	public String username = "root",password = "123456";
-	static String dbname = "jdbc:mysql://localhost/sxptDB";
+	static String dbname = "jdbc:mysql://localhost/sxpt_DB";
 	public DBConnection(){
 		this.Connect();
 	}

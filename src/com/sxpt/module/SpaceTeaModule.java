@@ -1,10 +1,10 @@
 package com.sxpt.module;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.mysql.jdbc.Connection;
 import com.sxpt.classes.DBConnection;
 
 public class SpaceTeaModule {
@@ -15,7 +15,7 @@ public class SpaceTeaModule {
 		//连接数据库
 		DBConnection dbCon = new DBConnection();
 		this.statement = dbCon.getStatement();
-		this.con = (Connection) dbCon.getCon();
+		this.con = dbCon.getCon();
 	}
 	
 	/**
