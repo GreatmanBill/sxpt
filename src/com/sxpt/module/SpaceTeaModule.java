@@ -92,7 +92,7 @@ public class SpaceTeaModule {
 		try {
 			result = this.statement.executeUpdate(sql);
 			
-			sql = "select max(bid) from batch";
+			sql = "select max(bid) as bid from batch";
 			
 			ResultSet rs = this.statement.executeQuery(sql);
 			int bid = 0;
@@ -153,7 +153,7 @@ public class SpaceTeaModule {
 		try {
 			result = this.statement.executeUpdate(sql);
 			
-			sql = "select max(did) from train_dr";
+			sql = "select max(did) as did from train_dr";
 			
 			ResultSet rs = this.statement.executeQuery(sql);
 			int did = 0;
@@ -189,7 +189,7 @@ public class SpaceTeaModule {
 		 try {
 			result = this.statement.executeUpdate(sql);
 			
-			sql = "select max(rid) from report";
+			sql = "select max(rid) as rid from report";
 
 			ResultSet rs = this.statement.executeQuery(sql);
 			int rid = 0;
@@ -262,5 +262,35 @@ public class SpaceTeaModule {
 //			 result = 1;
 //		 }
 		 return result; 
+		 
+	 }
+	  /** 信息标题， 信息发布人uid， 发布人姓名， 发布信息内容，发布信息时间，发布信息类型	
+	  * @return
+	  */
+	 public int addNews(String info_title, int info_uid, String info_name, String info_con, long ctime, int type){
+		 int result = 0;
+		 
+		 String sql = "insert into info_deploy(info_title, info_uid, info_name, info_con, ctime, type) value " +
+		 		"('"+info_title+"',"+info_uid+",'"+info_name+"','"+info_con+"',"+ctime+","+type+")";
+		 try {
+				result = this.statement.executeUpdate(sql);
+				
+				sql = "select max(infoid) as infoid from info_deploy";
+
+				ResultSet rs = this.statement.executeQuery(sql);
+				int infoid = 0;
+				if(rs.next()){
+					infoid = rs.getInt("infoid");
+				}
+					
+				if(result != 0){
+					result = infoid;
+				}
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		 return result;
+
 	 }
 }

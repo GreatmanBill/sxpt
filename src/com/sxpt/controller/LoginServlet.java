@@ -34,13 +34,13 @@ public class LoginServlet extends HttpServlet{
 			throws ServletException, IOException {
 		
 		byte b[];
-		String account = req.getParameter("username");
+		String account = req.getParameter("username").trim();
 		b = account.getBytes("ISO-8859-1");
-		account = new String(b);
+		account = new String(b, "utf-8");
 		
-		String psw = req.getParameter("psw");
+		String psw = req.getParameter("psw").trim();
 		b = psw.getBytes("ISO-8859-1");
-		psw = new String(b);
+		psw = new String(b, "utf-8");
 		
 		int type = Integer.parseInt(req.getParameter("identity"));
 		System.out.println("account:"+account + " psw:"+psw+" type:"+type);

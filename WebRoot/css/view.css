@@ -1,0 +1,28 @@
+body{
+	background:#EEEEEE;
+}
+
+#view{
+	width:900px;
+	min-height:600px;
+	margin:0 auto;
+	background:#fff;
+	margin-top: 30px;
+	padding: 20px 0 0 0;
+}
+
+#title, #user{
+	padding:10px 10px 10px 0;
+	width:80%;
+	margin: 0 auto;
+}
+
+#view p{
+	margin: 0 auto;
+	margin-top: 20px;
+	width:80%;
+	text-indent:2em;
+	line-height:200%;
+	background:#eee;
+	min-height:450px;
+}

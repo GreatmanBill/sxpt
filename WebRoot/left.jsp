@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		d.add(15,0,'信息管理','example01.html');
 		d.add(16,15,'栏目管理','example01.html','','','images/trash.gif');
-		d.add(17,15,'信息发布','example01.html','','','images/trash.gif');
+		d.add(17,15,'信息发布','newsDeploy.jsp','','right','images/trash.gif');
 
 		document.write(d);
 

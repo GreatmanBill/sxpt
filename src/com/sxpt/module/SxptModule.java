@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.sxpt.classes.DBConnection;
@@ -42,10 +43,11 @@ public class SxptModule {
 					"and type = "+type;
 			try {
 				rs = this.statement.executeQuery(sql);
-			
 				
-				Student stu = new Student();
+				
+				Student stu = null;
 				while (rs.next()) {
+					stu = new Student();
 	                //= rs.getString(1);
 					stu.setSid(rs.getInt("sid"));
 					stu.setSno(rs.getString("sno"));
@@ -58,11 +60,12 @@ public class SxptModule {
 					stu.setBid(rs.getInt("bid"));
 					stu.setTid(rs.getInt("tid"));
 					stu.setType(0);
+					user = new HashMap<String, Object>();
+					user.put("type", 0);
+					user.put("student", stu);
 					break;
 	            }
-				user = new HashMap<String, Object>();
-				user.put("type", 0);
-				user.put("student", stu);
+				
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -75,18 +78,21 @@ public class SxptModule {
 			"and type = "+type;
 			try {
 				rs = this.statement.executeQuery(sql);
-				Teacher tea = new Teacher();
+				Teacher tea = null;
 				while(rs.next()){
+					tea = new Teacher();
 					tea.setTid(rs.getInt("tid"));
 					tea.setTname(rs.getString("tname"));
 					tea.setTsex(rs.getString("tsex"));
 					tea.setT_direct(rs.getString("t_direct"));
 					tea.setType(rs.getInt("type"));
+					
+					user = new HashMap<String, Object>();
+					user.put("type", type);
+					user.put("teacher", tea);
 					break;
 				}
-				user = new HashMap<String, Object>();
-				user.put("type", type);
-				user.put("teacher", tea);
+				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -96,7 +102,122 @@ public class SxptModule {
 		return user;
 	}
 	
+	/**
+	 * 返回新闻数据当type= -1时，返回两类信息，type = 0时，返回公告，1时返回要闻
+	 * limit = 0时，返回全部该类信息，等于4时，返回该类4条最新信息
+	 * @param type 
+	 * @param limit 
+	 * @return
+	 */
+	public HashMap<String, Object> getNews(int type, int limit){
+		HashMap<String, Object> news = null;
+		ArrayList<HashMap<String, Object>> notice = null;
+		ArrayList<HashMap<String, Object>> outline = null;
+		String sql = null;
+		ResultSet rs = null;
+		try {
+			if(type == -1){
+				if(limit == 4){
+					sql = "select * from info_deploy where type = 0 order by infoid limit 4";
+					
+					rs = this.statement.executeQuery(sql);
+					notice = this.convertToList(rs);
+					
+					sql = "select * from info_deploy where type = 1 order by infoid limit 4";
+					
+					rs = this.statement.executeQuery(sql);
+					outline = this.convertToList(rs);
+					
+					news = new HashMap<String,Object>();
+					news.put("notice", notice);
+					news.put("outline", outline);
+				} else {
+					
+					sql = "select * from info_deploy where type = 0 order by infoid";
+					
+					rs = this.statement.executeQuery(sql);
+					notice = this.convertToList(rs);
+					
+					sql = "select * from info_deploy where type = 1 order by infoid";
+					
+					rs = this.statement.executeQuery(sql);
+					outline = this.convertToList(rs);
+					
+					news = new HashMap<String,Object>();
+					news.put("notice", notice);
+					news.put("outline", outline);
+				}
+			} else {
+				sql = "select * from info_deploy where type = "+type+" order by infoid desc";
+				rs = this.statement.executeQuery(sql);
+				if(type == 0){
+					notice = this.convertToList(rs);
+					news = new HashMap<String,Object>();
+					news.put("notice", notice);
+				} else {
+					outline = this.convertToList(rs);
+					news = new HashMap<String,Object>();
+					news.put("outline", outline);
+				}
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return news;
+	}
 	
+	private ArrayList<HashMap<String, Object>> convertToList(ResultSet rs){
+		
+		ArrayList<HashMap<String, Object>> news = new ArrayList<HashMap<String, Object>>();
+		HashMap<String, Object> temp = null;
+		
+		try {
+			while(rs.next()){
+				temp = new HashMap<String, Object>();
+				temp.put("infoid", rs.getInt("infoid"));
+				temp.put("info_uid", rs.getInt("info_uid"));
+				temp.put("info_name", rs.getString("info_name"));
+				temp.put("info_title", rs.getString("info_title"));
+				temp.put("info_con", rs.getString("info_con"));
+				temp.put("ctime", rs.getLong("ctime"));
+				temp.put("type", rs.getInt("type"));
+				news.add(temp);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	
+		return news;
+	}
+	
+	public HashMap<String, Object> getNewsById(int infoid){
+		
+		HashMap<String, Object> news = null;
+		
+		ResultSet rs = null;
+		
+		String sql = "select * from info_deploy where infoid="+infoid;
+		try {
+			rs = this.statement.executeQuery(sql);
+			while(rs.next()){
+				news = new HashMap<String, Object>();
+				news.put("infoid", rs.getInt("infoid"));
+				news.put("info_uid", rs.getInt("info_uid"));
+				news.put("info_name", rs.getString("info_name"));
+				news.put("info_title", rs.getString("info_title"));
+				news.put("info_con", rs.getString("info_con"));
+				news.put("ctime", rs.getLong("ctime"));
+				news.put("type", rs.getInt("type"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return news;
+	}
 	
 }

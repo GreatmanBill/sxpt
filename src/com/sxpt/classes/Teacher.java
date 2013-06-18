@@ -1,6 +1,8 @@
 package com.sxpt.classes;
 
-public class Teacher{
+import java.io.Serializable;
+
+public class Teacher implements Serializable {
 	private int tid;
 	private String tname;
 	private String tsex;

@@ -26,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<%
 				String identity = "学生";
 				String username = "小兵";
-				if(session.getAttribute("type") !=null){
+				if(session.getAttribute("user") !=null){
 					HashMap<String, Object> user = (HashMap<String, Object>)session.getAttribute("user");
 					int type = Integer.parseInt(user.get("type").toString());
 					if(type == 0){
@@ -36,6 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					} else if(type == 2){
 						identity = "负责人";
 					}
+					
 					
 					if(type == 0){
 						Student stu = (Student)user.get("student");
