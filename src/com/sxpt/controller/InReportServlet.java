@@ -1,6 +1,7 @@
 package com.sxpt.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.sxpt.module.SpaceTeaModule;
 import com.sxpt.module.SxptModule;
 	
 /**
@@ -18,12 +20,11 @@ import com.sxpt.module.SxptModule;
  *
  */
 public class InReportServlet extends HttpServlet{
-	SxptModule sxptM = null;
-	
 	String sqlstr;
+	SpaceTeaModule spacetM = null;
 	public InReportServlet(){
-		this.sxptM = new SxptModule();
-		System.out.println("bbbb");
+		this.spacetM = new SpaceTeaModule();
+
 	}
 
 	@Override
@@ -56,9 +57,25 @@ public class InReportServlet extends HttpServlet{
 		
 		System.out.println("sname:"+sname + " sno:"+sno+" intimes:"+intimes+" ingrade:"+ingrade );
 		
-		
-		RequestDispatcher dispatcher = req.getRequestDispatcher("");
-		dispatcher.forward(req,resp);
+		System.out.println("intimes");
+		int times = Integer.parseInt(intimes);
+		int grade = Integer.parseInt(ingrade);
+		System.out.println("intimes"+times+"ingrade"+grade);
+		try {
+			int result = this.spacetM.modifyReport(sname, sno, times, grade);
+			System.out.println("result+++:"+result);
+			if(result == 1){
+				req.getSession().setAttribute("message", "添加成功");
+				req.getSession().setAttribute("url", "updateInReport.jsp");
+				resp.sendRedirect("success.jsp");
+			 }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		
+//		RequestDispatcher dispatcher = req.getRequestDispatcher("");
+//		dispatcher.forward(req,resp);
 //			sqlstr = 
 //			
 //			if(user != null){			

@@ -231,4 +231,36 @@ public class SpaceTeaModule {
 		return result;
 		 							
 	 }
+	 
+	 /**
+	 * @throws SQLException 
+	  * @param sname
+	  * @param sno
+	  * @param in_times
+	  * @param in_grade
+	  * 
+	  * return result
+	  */
+	 public int modifyReport(String sname,String sno,int intimes,int ingrade ) throws SQLException{
+		int result = 0;
+		System.out.println("modifyreport");
+		System.out.println("sname:  "+sname+"sno:   "+sno);
+		String sql = "select rid from report where sname = '"+sname+"' and sno = '"+sno+"'";
+		ResultSet rs = this.statement.executeQuery(sql);
+		int rid = 0;
+		if(rs.next()){
+			rid = rs.getInt("rid");
+			System.out.println(rid);
+		}
+
+		 String sql2 = "update in_report set in_times = "+intimes+", in_grade = '"+ingrade+"'" +
+	 		"where rid = "+rid;
+		 result = this.statement.executeUpdate(sql2);
+		 System.out.println(result);
+//		 if(rs2.next()){
+//			 
+//			 result = 1;
+//		 }
+		 return result; 
+	 }
 }
