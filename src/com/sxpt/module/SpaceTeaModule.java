@@ -235,7 +235,40 @@ public class SpaceTeaModule {
 	 }
 	 
 	 /**
-	  * 信息标题， 信息发布人uid， 发布人姓名， 发布信息内容，发布信息时间，发布信息类型	
+	  * 叙述：修改课内实训成绩
+	  * 学生姓名，学生学号，实训次数，实训成绩
+	 * @throws SQLException 
+	  * @param sname
+	  * @param sno
+	  * @param in_times
+	  * @param in_grade
+	  * 
+	  * return result
+	  */
+	 public int modifyReport(String sname,String sno,int intimes,int ingrade ) throws SQLException{
+		int result = 0;
+		System.out.println("modifyreport");
+		System.out.println("sname:  "+sname+"sno:   "+sno);
+		String sql = "select rid from report where sname = '"+sname+"' and sno = '"+sno+"'";
+		ResultSet rs = this.statement.executeQuery(sql);
+		int rid = 0;
+		if(rs.next()){
+			rid = rs.getInt("rid");
+			System.out.println(rid);
+		}
+
+		 String sql2 = "update in_report set in_times = "+intimes+", in_grade = '"+ingrade+"'" +
+	 		"where rid = "+rid;
+		 result = this.statement.executeUpdate(sql2);
+		 System.out.println(result);
+//		 if(rs2.next()){
+//			 
+//			 result = 1;
+//		 }
+		 return result; 
+		 
+	 }
+	  /** 信息标题， 信息发布人uid， 发布人姓名， 发布信息内容，发布信息时间，发布信息类型	
 	  * @return
 	  */
 	 public int addNews(String info_title, int info_uid, String info_name, String info_con, long ctime, int type){
@@ -262,8 +295,34 @@ public class SpaceTeaModule {
 			e.printStackTrace();
 		}
 		 return result;
-		 
+
 	 }
-	 
-	 
+
+	 /**
+	  * 叙述：修改课外实训成绩
+	  * 学生姓名，学生学号，课外成绩
+	  * @param sname
+	  * @param sno
+	  * @param outsum
+	  * 
+	  * return result
+	  */
+	 public int modifyOutSum(String sname,String sno,int outsum ) throws SQLException{
+			int result = 0;
+			System.out.println("modifyoutsum");
+			System.out.println("sname:  "+sname+"sno:   "+sno);
+			String sql = "select rid from report where sname = '"+sname+"' and sno = '"+sno+"'";
+			ResultSet rs = this.statement.executeQuery(sql);
+			int rid = 0;
+			if(rs.next()){
+				rid = rs.getInt("rid");
+				System.out.println("rid     "+rid);
+			}
+
+			 String sql2 = "update report set out_sum = '"+outsum+"'"+"where rid = '"+rid+"'";
+			 result = this.statement.executeUpdate(sql2);
+			 System.out.println(result);
+			 return result; 
+			 
+		 }
 }
