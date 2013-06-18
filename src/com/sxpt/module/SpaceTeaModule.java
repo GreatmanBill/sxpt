@@ -233,6 +233,8 @@ public class SpaceTeaModule {
 	 }
 	 
 	 /**
+	  * 叙述：修改课内实训成绩
+	  * 学生姓名，学生学号，实训次数，实训成绩
 	 * @throws SQLException 
 	  * @param sname
 	  * @param sno
@@ -293,4 +295,31 @@ public class SpaceTeaModule {
 		 return result;
 
 	 }
+	 /**
+	  * 叙述：修改课外实训成绩
+	  * 学生姓名，学生学号，课外成绩
+	  * @param sname
+	  * @param sno
+	  * @param outsum
+	  * 
+	  * return result
+	  */
+	 public int modifyOutSum(String sname,String sno,int outsum ) throws SQLException{
+			int result = 0;
+			System.out.println("modifyoutsum");
+			System.out.println("sname:  "+sname+"sno:   "+sno);
+			String sql = "select rid from report where sname = '"+sname+"' and sno = '"+sno+"'";
+			ResultSet rs = this.statement.executeQuery(sql);
+			int rid = 0;
+			if(rs.next()){
+				rid = rs.getInt("rid");
+				System.out.println("rid     "+rid);
+			}
+
+			 String sql2 = "update report set out_sum = '"+outsum+"'"+"where rid = '"+rid+"'";
+			 result = this.statement.executeUpdate(sql2);
+			 System.out.println(result);
+			 return result; 
+			 
+		 }
 }
