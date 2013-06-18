@@ -6,8 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.sxpt.classes.DBConnection;
 
 public class SpaceTeaModule {
@@ -39,8 +39,11 @@ public class SpaceTeaModule {
 		System.out.println("leadInStu: "+sql);
 		
 		try {
-			result = this.statement.executeUpdate(sql);
-			
+			try{
+				result = this.statement.executeUpdate(sql);
+			} catch(MySQLIntegrityConstraintViolationException e){
+				return -10;
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,8 +66,11 @@ public class SpaceTeaModule {
 		System.out.println("leadInTea: "+sql);
 		
 		try {
-			result = this.statement.executeUpdate(sql);
-			
+			try{
+				result = this.statement.executeUpdate(sql);
+			} catch(MySQLIntegrityConstraintViolationException e){
+				return -10;
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

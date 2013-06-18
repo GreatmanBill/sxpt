@@ -29,7 +29,7 @@
     			}
     		%>
     		<form action="leadStu" enctype="multipart/form-data" method="post">
-    			<label for="bid">学生批次</label>
+    			<label for="bid">实训批次</label>
     			<select name="bid" id="bid">
     				<%
     					out.print("<option value='-1'>请选择批次</option>");
@@ -50,7 +50,7 @@
     	<div class = 'manualLead'>
     		<form action="leadStu" method="post">
     		<!-- 学号，姓名，班级，初始密码 -->
-    			<p><label for="bid">学生批次</label>
+    			<p><label for="bid">实训批次</label>
     			<select name="bid" id="bid">
     				<%
    						out.print("<option value='-1'>请选择批次</option>");

@@ -33,28 +33,50 @@ public class LeadStuServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		upload(req, resp);
-		//MultipartRequest mulit = new MultipartRequest(request,filePath,fileMaxSize,"UTF-8",rfrp);
-//		byte[] b = null;
-//		String sub = req.getParameter("sub");
-//		System.out.println(sub); 
-		
-		/*String psw = req.getParameter("psw");
-		b = psw.getBytes("ISO-8859-1");
-		psw = new String(b);
-		
-		int type = Integer.parseInt(req.getParameter("identity"));
-		System.out.println("account:"+account + " psw:"+psw+" type:"+type);
-		HashMap<String, Object> user = this.sxptM.login(account, psw, type);
-		HttpSession session = req.getSession(true);
-		if(user != null){			
-			session.setAttribute("user", user);
-			resp.sendRedirect("space.jsp");
-		} else {
-			session.setAttribute("message", "账号或密码错误");
-			resp.sendRedirect("index.jsp");
+		try{
+			String sub = req.getParameter("sub");
+			byte[] b = null;
+			b = sub.getBytes("ISO-8859-1");
+			sub = new String(b, "utf-8");
+			
+			int bid = Integer.parseInt(req.getParameter("bid"));
+			if(bid == -1){
+				req.getSession().setAttribute("message", "请选择批次");
+				resp.sendRedirect("leadStu.jsp");
+			}
+			String sno = req.getParameter("sno");
+			b = sno.getBytes("ISO-8859-1");
+			sno = new String(b,"utf-8");
+			
+			String sname = req.getParameter("sname");
+			b = sname.getBytes("ISO-8859-1");
+			sname = new String(b,"utf-8");
+			
+			String sclass = req.getParameter("sclass");
+			b = sclass.getBytes("ISO-8859-1");
+			sclass = new String(b,"utf-8");
+			String spsw = req.getParameter("spsw");
+			b = spsw.getBytes("ISO-8859-1");
+			spsw = new String(b,"utf-8");
+			
+			//组装学生信息为(sno,sname, sclass, staPsw, bid)格式
+			String stu = "('"+sno+"','"+sname+"','"+sclass+"','"+spsw+"',"+bid+")";
+			int insertid = this.spaceTea.leadInStu(stu);
+			if(insertid > 0){
+				 req.getSession().setAttribute("message", "学生信息成功");
+				 req.getSession().setAttribute("url", "leadStu.jsp");
+				 resp.sendRedirect("success.jsp");
+			 } else if(insertid == -10) {
+				 req.getSession().setAttribute("message", "请检查，学号不能重复");
+				 resp.sendRedirect("leadStu.jsp");
+			 } else {
+				 req.getSession().setAttribute("message", "插入学生信息失败");
+				 resp.sendRedirect("leadStu.jsp");
+			 }
+			System.out.println(sub + " "+sno +" "+sname+" "+sclass+" "+spsw); 
+		}catch(NullPointerException e){
+			upload(req, resp);
 		}
-		*/
 	}
 	
 	public String leadStuFile(String path) throws IOException{
@@ -129,6 +151,9 @@ public class LeadStuServlet extends HttpServlet {
 				 req.getSession().setAttribute("message", "导入学生信息成功");
 				 req.getSession().setAttribute("url", "leadStu.jsp");
 				 resp.sendRedirect("success.jsp");
+			 } else if(insertid == -10) {
+				 req.getSession().setAttribute("message", "请检查，学号不能重复");
+				 resp.sendRedirect("leadStu.jsp");
 			 } else {
 				 req.getSession().setAttribute("message", "文件格式错误");
 				 resp.sendRedirect("leadStu.jsp");
