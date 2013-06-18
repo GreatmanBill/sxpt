@@ -1,0 +1,50 @@
+body{
+	background:#fff;
+}
+
+#signManage{
+	padding:60px 0 0 40px;
+}
+
+#newBatch{
+	
+}
+
+#newBatch a{
+	background:#4EBAF3;
+	display:inline-block;
+	width:100px;
+	height:25px;
+	text-align:center;
+	line-height:25px;
+}
+
+
+#signManage table{
+	margin:20px 0 0 0;
+	background:#F0F0F0;
+	width:90%;
+	text-align:center;
+}
+
+#signManage table caption{
+	background:#0283C5;
+}
+
+#signManage table .head{
+	background:#6699FF;
+}
+
+#signManage table .has{
+	background:#DDDDDD;
+}
+
+.bname{
+	text-align:left;
+}
+
+#signManage .newTitle{
+	margin:50px 0;
+	background:red;
+}
+

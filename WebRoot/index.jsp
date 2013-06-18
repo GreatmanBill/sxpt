@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div id="left">
 				<div id="left-top">
 					<h3>系统登录</h3>
-					<form action="login" method="get">
+					<form action="login" method="post">
 						<p>
 							<label for="identity">身份</label>
 							<select name = "identity" id="identity">

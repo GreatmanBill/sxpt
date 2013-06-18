@@ -128,6 +128,7 @@ public class SpaceTeaModule {
 			while(rs.next()){
 				temp.put("bid", rs.getInt("bid"));
 				temp.put("bname", rs.getString("bname"));
+				temp.put("open", rs.getInt("open"));
 				batchs.add(temp);
 			}
 		
@@ -142,11 +143,12 @@ public class SpaceTeaModule {
 	 * 新建实训方向
 	 * @param bid 批次
 	 * @param dname	方向名称
+	 * @param dprofile 方向简介
 	 * @return	新建实训方向成功后返回方向id-》did
 	 */
-	public int newTrain_dr(int bid,  String dname){
+	public int newTrain_dr(int bid,  String dname, String dprofile){
 		int result = 0;
-		String sql = "insert into train_dr (bid, dname) value ("+bid+",'"+dname+"')";
+		String sql = "insert into train_dr (bid, dname, dprofile) value ("+bid+",'"+dname+"','"+dprofile+"')";
 
 		System.out.println("newTrain_dr: "+sql);
 		
@@ -262,4 +264,6 @@ public class SpaceTeaModule {
 		 return result;
 		 
 	 }
+	 
+	 
 }

@@ -51,4 +51,21 @@
     <url-pattern>/addNews</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>AddBatchServlet</servlet-name>
+    <servlet-class>com.sxpt.controller.AddBatchServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddBatchServlet</servlet-name>
+    <url-pattern>/newBatch</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>NewDirectServlet</servlet-name>
+    <servlet-class>com.sxpt.controller.NewDirectServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewDirectServlet</servlet-name>
+    <url-pattern>/newDirect</url-pattern>
+  </servlet-mapping>
 </web-app>

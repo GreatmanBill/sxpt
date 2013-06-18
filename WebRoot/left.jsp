@@ -25,6 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		d = new dTree('d');
 
+		
 		d.add(0,-1,'管理中心');
 		d.add(1,0,'资源管理','example01.html');
 		d.add(2,1,'课程管理','example01.html');
@@ -32,7 +33,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		d.add(4,1,'实训方案管理','example01.html');
 		
 		d.add(5,0,'实训组织与评估','example01.html');
-		d.add(6,5,' 实训报名管理','example01.html');
+		d.add(6,5,'实训报名管理','admin/signManage.jsp','','right');
+		
 		d.add(7,5,'实训实施管理','example01.html');
 		d.add(8,5,'成绩单模板管理','example01.html');
 		d.add(9,5,'实训综合统计','example01.html');
