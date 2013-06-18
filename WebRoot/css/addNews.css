@@ -1,0 +1,18 @@
+body{
+	background:#fff;
+}
+
+#addNews{
+	padding: 40px 0 0 100px;
+}
+
+#addNews p{
+	margin:10px 0 0 0;
+}
+
+#addNews .sub{
+	display:inline-block;
+	width:70px;
+	height:25px;
+	line-height:25px;
+}

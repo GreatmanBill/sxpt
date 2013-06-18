@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page import="com.sxpt.module.*"%>
+<%@ page import="java.text.*"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -18,8 +20,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div id="wrap">
 			<div class="line_blue"></div>
 			<div id ="header">				
-				<div id="logo">
-					软件实训平台
+				<div id="logo">&nbsp; 
+					软件实训平台 
 				</div>
 				
 				<div id="banner">
@@ -80,24 +82,56 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</dd>
 					</dl>
 				</div>
-				
+				<%
+					SxptModule sxptM = new SxptModule();
+					//得到两类各4条信息
+					HashMap<String, Object> news = sxptM.getNews(-1, 4);
+					ArrayList<HashMap<String, Object>> notice = (ArrayList<HashMap<String, Object>>)news.get("notice");
+					ArrayList<HashMap<String, Object>> outline = (ArrayList<HashMap<String, Object>>)news.get("outline");
+					HashMap<String, Object> temp = null;
+				 %>
 				<div id="notice" class="news">
 					<h4><a href="">更多&gt;&gt;</a>实训通告</h4>
 					<ul>
+						<%
+							
+							for(int i = 0;i < notice.size();i++){
+								temp = notice.get(i);
+								SimpleDateFormat format =   new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
+						      	String day = format.format(Long.parseLong(temp.get("ctime").toString()));
+						      	int infoid = Integer.parseInt(temp.get("infoid").toString());
+						      	String info_title = temp.get("info_title").toString();
+								out.print("<li><span>"+day+"</span><a href='view.jsp?infoid="+infoid+"'>"+info_title+"</a></li>");
+							}
+						 %>
+						<!--  
 						<li><span>2012-06-05</span><a href="">实训公告一</a></li>
 						<li><span>2012-06-05</span><a href="">实训公告二</a></li>
 						<li><span>2012-06-05</span><a href="">实训公告三</a></li>
 						<li><span>2012-06-05</span><a href="">实训公告四</a></li>
+						-->
 					</ul>
 				</div>
 				
 				<div id="import" class="news">
 					<h4><a href="">更多&gt;&gt;</a>实训要闻</h4>
 					<ul>
+						<%
+							for(int i = 0;i < outline.size();i++){
+								temp = outline.get(i);
+								SimpleDateFormat format = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
+						      	String day = format.format(Long.parseLong(temp.get("ctime").toString()));
+						      	int infoid = Integer.parseInt(temp.get("infoid").toString());
+						      	String info_title = temp.get("info_title").toString();
+								out.print("<li><span>"+day+"</span><a href='view.jsp?infoid="+infoid+"'>"+info_title+"</a></li>");
+							}
+						 %>
+						<!-- 
 						<li><span>2012-06-05</span><a href="">实训公告一</a></li>
 						<li><span>2012-06-05</span><a href="">实训公告二</a></li>
 						<li><span>2012-06-05</span><a href="">实训公告三</a></li>
 						<li><span>2012-06-05</span><a href="">实训公告四</a></li>
+						 -->
 					</ul>
 				</div>
 			</div>		

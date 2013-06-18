@@ -1,6 +1,8 @@
 package com.sxpt.classes;
 
-public class Student{
+import java.io.Serializable;
+
+public class Student implements Serializable {
 	private int sid;
 	private String sno;
 	private String sname;

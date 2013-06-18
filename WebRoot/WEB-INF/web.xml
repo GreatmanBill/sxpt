@@ -36,9 +36,19 @@
   	<servlet-name>leadTeaServlet</servlet-name>
   	<servlet-class>com.sxpt.controller.LeadTeaServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
   	<servlet-name>leadTeaServlet</servlet-name>
   	<url-pattern>/leadTea</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AddNewsServlet</servlet-name>
+    <servlet-class>com.sxpt.controller.AddNewsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddNewsServlet</servlet-name>
+    <url-pattern>/addNews</url-pattern>
   </servlet-mapping>
   
 </web-app>

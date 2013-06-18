@@ -1,0 +1,42 @@
+body{
+	background:#fff;
+}
+
+#newsDeploy{
+	padding:40px 0 0 30px;
+}
+
+#newsDeploy h2{
+	margin: 0 0 20px 0;
+}
+
+#newsDeploy table{
+	width:70%;
+	text-align:center;
+}
+
+
+.tabelHead{
+	background:#0283C5;
+}
+
+.notice{
+	background:#BFDFFF;
+}
+
+.news{
+	background:#F0F0F0;
+}
+
+.first{
+	text-align:left;
+}
+
+.addLink{
+	padding:10px 0;
+}
+
+.addLink a{
+	background:#77C9F4;
+	padding:3px 3px 3px 0;
+}
