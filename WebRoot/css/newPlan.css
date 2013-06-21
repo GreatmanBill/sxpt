@@ -1,0 +1,36 @@
+body{
+	background:#fff;
+}
+
+#newPlan{
+	padding:60px 0 0 60px;;
+}
+
+#newPlan form{
+	margin:40px 0 0 0;
+}
+
+#newPlan p{
+	margin:10px 0 0 0;
+}
+
+#newPlan label{
+	display:inline-block;
+	width:100px;
+	line-height:25px;
+}
+
+#newPlan .text{
+	line-height:20px;	
+	display:inline-block;
+	width:200px;
+}
+
+#newPlan .sub{
+	display:inline-block;
+	width:60px;
+	height:25px;
+	line-height:25px;
+	font-size:16px;
+	
+}

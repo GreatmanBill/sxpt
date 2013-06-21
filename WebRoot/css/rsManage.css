@@ -1,0 +1,55 @@
+body{
+	background:#fff;
+}
+
+#rsManage{
+	padding:30px 0 0 40px;
+}
+
+.back{
+	display:block;
+	width:60px;
+	margin:0 0 40px 0;
+	line-height:25px;
+	text-align:center;
+	background:#4EBAF3;
+}
+
+#uploadRs{
+	width:85%;
+}
+
+#uploadRs form{
+	padding:30px 0 30px 50px;
+}
+
+#uploadRs form p{
+	margin: 10px 0 0 0;
+	clear:both;
+}
+#uploadRs form p label, #uploadRs form p input{
+	float:left;
+}
+
+#uploadRs form p label{
+	width:80px;
+}
+
+.but{
+	width:60px;
+	height:25px;
+	font-size:16px;
+	line-height:25px;
+}
+
+.res{
+	margin: 0 0 0 60px;
+}
+
+
+
+
+
+
+
+

@@ -41,7 +41,7 @@ public class SpaceTeaModule {
 		try {
 			try{
 				result = this.statement.executeUpdate(sql);
-			} catch(MySQLIntegrityConstraintViolationException e){
+			} catch(MySQLIntegrityConstraintViolationException e){//插入重复异常
 				return -10;
 			}
 		} catch (SQLException e) {
@@ -124,8 +124,9 @@ public class SpaceTeaModule {
 		try {
 			ResultSet rs = this.statement.executeQuery(sql);
 			batchs = new ArrayList<HashMap<String, Object>>();
-			temp = new HashMap<String, Object>();
+			
 			while(rs.next()){
+				temp = new HashMap<String, Object>();
 				temp.put("bid", rs.getInt("bid"));
 				temp.put("bname", rs.getString("bname"));
 				temp.put("open", rs.getInt("open"));
@@ -325,4 +326,293 @@ public class SpaceTeaModule {
 			 return result; 
 			 
 		 }
+	 
+	 /**
+	  * 获得所有的实训方向
+	  * @return
+	  */
+	 public ArrayList<HashMap<String, Object>> getAllDirects(){
+
+			int result = 0;
+			
+			String sql = "select * from train_dr order by did desc";
+			
+			System.out.println(sql);
+			ArrayList<HashMap<String, Object>> t_directs  = null;
+			HashMap<String, Object> temp = null;
+			try {
+				ResultSet rs = this.statement.executeQuery(sql);
+				t_directs = new ArrayList<HashMap<String, Object>>();
+				
+				while(rs.next()){
+					temp = new HashMap<String, Object>();
+					temp.put("did", rs.getInt("did"));
+					temp.put("dname", rs.getString("dname"));
+					temp.put("bid", rs.getInt("bid"));
+					temp.put("dprofile", rs.getString("dprofile"));
+					t_directs.add(temp);
+				}
+			
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			return t_directs;
+		 
+	 }
+	 
+	 /**
+	  * 新建实训方案,新建成功返回insertid
+	  * @param train_name	实训方案名称
+	  * @return
+	  */
+	 public int newPlan(String train_name){
+		int result = 0;
+		String sql = "insert into train_plan (train_name) value ('"+train_name+"')";
+
+		System.out.println("newPlan: "+sql);
+		
+		try {
+			result = this.statement.executeUpdate(sql);
+			
+			sql = "select max(trainid) as trainid from train_plan";
+			
+			ResultSet rs = this.statement.executeQuery(sql);
+			int trainid = 0;
+			if(rs.next()){
+				trainid = rs.getInt("trainid");
+			}
+			
+			if(result != 0){
+					
+				result = trainid;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	 }
+	 
+	 /**
+	  * 得到所有的实训方案
+	  * @return
+	  */
+	 public ArrayList<HashMap<String, Object>> getAllPlan(){
+		int result = 0;
+			
+		String sql = "select trainid, train_name, train_plan.did, dname from train_plan " +
+				"left join train_dr on train_plan.did = train_dr.did " +
+				"order by trainid desc";
+		System.out.println("getAllPlan: "+sql);
+		ArrayList<HashMap<String, Object>> plans  = null;
+		HashMap<String, Object> temp = null;
+		try {
+			ResultSet rs = this.statement.executeQuery(sql);
+			plans = new ArrayList<HashMap<String, Object>>();
+			
+			while(rs.next()){
+				temp = new HashMap<String, Object>();
+				temp.put("trainid", rs.getInt("trainid"));
+				temp.put("train_name", rs.getString("train_name"));
+				temp.put("did", rs.getInt("did"));
+				temp.put("dname", rs.getString("dname"));
+				plans.add(temp);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return plans;
+		 
+	 }
+	 
+	 /**
+	  * 根据传入的批次id来获得该批次下的所有方向
+	  * @param bid
+	  * @return
+	  */
+	 public ArrayList<HashMap<String, Object>> getDirectssByBid(int bid){
+		 int result = 0;
+			
+		 String sql = "select * from train_dr where bid = "+bid;
+		 System.out.println("getDirectssByBid: "+sql);
+		 ArrayList<HashMap<String, Object>> t_directs  = null;
+		 HashMap<String, Object> temp = null;
+		 try {
+			 ResultSet rs = this.statement.executeQuery(sql);
+			 t_directs = new ArrayList<HashMap<String, Object>>();
+				
+			 while(rs.next()){
+				temp = new HashMap<String, Object>();
+				temp.put("did", rs.getInt("did"));
+				temp.put("dname", rs.getString("dname"));
+				temp.put("bid", rs.getInt("bid"));
+				temp.put("dprofile", rs.getString("dprofile"));
+				t_directs.add(temp);
+			 }
+		
+		 } catch (SQLException e) {
+			 e.printStackTrace();
+		 }
+		
+		 return t_directs;
+	 }
+	 
+	 /**
+	  * 更新实训方案的实训方向
+	  * @param did		实训方向id
+	  * @param trainid 	实训方案id
+	  * @return
+	  */
+	 public int updateDidOfPlan(int did, int trainid){
+		int result = 0;
+		String sql = "update train_plan set did = "+did+" where trainid = "+trainid;
+		
+		System.out.println("updateDidOfPlan: "+sql);
+		
+		try {
+			
+			result = this.statement.executeUpdate(sql);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+		 
+	 }
+	 
+	 /**
+	  * 新建课程分类
+	  * @param class_name	课程分类名
+	  * @return
+	  */
+	 public int newCourseClass(String class_name){
+		 
+		int result = 0;
+		String sql = "insert into course_class (class_name) value ('"+class_name+"')";
+
+		System.out.println("newCourseClass: "+sql);
+		
+		try {
+			result = this.statement.executeUpdate(sql);
+			
+			sql = "select max(classid) as classid from course_class";
+			
+			ResultSet rs = this.statement.executeQuery(sql);
+			int classid = 0;
+			if(rs.next()){
+				classid = rs.getInt("classid");
+			}
+			
+			if(result != 0){
+					
+				result = classid;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	 }
+	 
+	 /**
+	  *  获得所有的课程分类
+	  * @return
+	  */
+	 public ArrayList<HashMap<String, Object>> getAllCourseClass(){
+		 
+		int result = 0;
+			
+		String sql = "select * from course_class order by classid desc";
+		
+		System.out.println(sql);
+		ArrayList<HashMap<String, Object>> course_classes = null;
+		HashMap<String, Object> temp = null;
+		try {
+			ResultSet rs = this.statement.executeQuery(sql);
+			course_classes = new ArrayList<HashMap<String, Object>>();
+			
+			while(rs.next()){
+				temp = new HashMap<String, Object>();
+				temp.put("classid", rs.getInt("classid"));
+				temp.put("class_name", rs.getString("class_name"));
+				course_classes.add(temp);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return course_classes;
+	 }
+	 
+	 /**
+	  * 新建课程
+	  * @param classid		课程分类id
+	  * @param cname		课程名
+	  * @param cprofile		课程简介
+	  * @return
+	  */
+	 public int newCourse(int classid, String cname, String cprofile){
+		int result = 0;
+		String sql = "insert into course_unit(classid, cname, cprofile) value(" +
+				""+classid+",'"+cname+"', '"+cprofile+"')";
+
+		System.out.println("newCourse: "+sql);
+		
+		try {
+			result = this.statement.executeUpdate(sql);
+			
+			sql = "select max(cid) as cid from course_unit";
+			
+			ResultSet rs = this.statement.executeQuery(sql);
+			int cid = 0;
+			if(rs.next()){
+				cid = rs.getInt("cid");
+			}
+			
+			if(result != 0){
+					
+				result = cid;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	 }
+	 
+	 public ArrayList<HashMap<String, Object>> getCoursesByClassid(int classid){
+		 
+		 int result = 0;
+			
+		 String sql = "select * from course_unit where classid = "+classid+" order by cid desc";
+		 System.out.println("getCoursesByClassid: "+sql);
+		 ArrayList<HashMap<String, Object>> courses  = null;
+		 HashMap<String, Object> temp = null;
+		 try {
+			 ResultSet rs = this.statement.executeQuery(sql);
+			 courses = new ArrayList<HashMap<String, Object>>();
+				
+			 while(rs.next()){
+				temp = new HashMap<String, Object>();
+				temp.put("cid", rs.getInt("cid"));
+				temp.put("cname", rs.getString("cname"));
+				temp.put("classid", rs.getInt("classid"));
+				temp.put("cprofile", rs.getString("cprofile"));
+				temp.put("cresourse", rs.getString("cresourse"));
+				courses.add(temp);
+			 }
+		
+		 } catch (SQLException e) {
+			 e.printStackTrace();
+		 }
+		
+		 return courses;
+	 }
 }

@@ -1,0 +1,112 @@
+body{
+	background:#fff;
+}
+
+.back{
+	display:inline-block;
+	width:60px;
+	line-height:25px;
+	text-align:center;
+	background:#4EBAF3;
+}
+
+#viewPlan{
+	width:90%;
+	margin:20px auto;
+}
+
+#viewPlan h1{
+	text-align:center;
+	padding:20px 0;
+}
+
+#viewPlan h3{
+	margin:20px 0;
+	text-align:center;
+}
+
+#addUnit{
+	margin:  0 0 40px 0;
+	padding:30px 0;
+}
+#addUnit form{
+	width:600px;
+	margin:0 auto;
+}
+
+#addUnit p{
+	line-height:25px;
+	margin:5px 0 0 0;
+	padding:0 0 0 180px;
+}
+
+#addUnit p label{
+	display:inline-block;
+	height:25px;
+	line-height:30px;
+	font-size:16px;
+}
+
+#addUnit p select{
+	display:inline-block;
+	width:180px;
+	height:25px;
+	line-height:30px;
+	font-size:16px;
+}
+
+.sub{
+	display:inline-block;
+	width:60px;
+	height:25px;
+	line-height:25px;
+	font-size:16px;
+	margin:0 0 0 160px;
+}
+
+
+table{
+	width:85%;
+	margin:40px auto;
+	text-align:center;
+}
+table caption{
+	background:#0283C5;
+}
+
+table tr{
+	line-height:25px;
+	background:#F0F0F0;
+}
+
+table tr.head{
+	background:#6699FF;
+}
+
+
+
+.cname{
+	background:#ddd;
+}
+
+.profile{
+	font-size:14px;
+}
+
+.first{
+	text-align:left;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

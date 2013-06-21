@@ -1,0 +1,82 @@
+body{
+	background:#fff;
+}
+
+#viewCourseClass{
+	padding:30px 0 0 40px;
+}
+
+.back{
+			display:block;
+			margin:0 0 30px 0;
+			width:60px;
+			line-height:25px;
+			text-align:center;
+			background:#4EBAF3;
+}
+
+#newCourse{
+	width:85%;
+	padding:30px 0;
+}
+
+
+p.cname{
+	margin:20px 0 0 0;
+}
+
+#newCourse p{
+	padding: 0 0 0 100px;
+	clear:both;
+	margin: 10px 0 0 0;
+}
+
+#newCourse p label{
+	float:left;
+	width:80px;
+}
+
+#newCourse p input{
+	float:left;
+}
+
+#newCourse p .sub, #newCourse p .res{
+	width:60px;
+	height:25px;
+	font-size:16px;
+	line-height:25px;
+	margin: 0 0 0 80px;
+}
+
+
+table{
+	width:85%;
+	margin:40px 0;
+	text-align:center;
+}
+table caption{
+	background:#0283C5;
+}
+
+table tr{
+	line-height:25px;
+	background:#F0F0F0;
+}
+
+table tr.head{
+	background:#6699FF;
+}
+
+
+
+.cname{
+	background:#ddd;
+}
+
+.profile{
+	font-size:14px;
+}
+
+.first{
+	text-align:left;
+}

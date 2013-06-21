@@ -1,0 +1,31 @@
+table{
+	width:85%;
+	margin:40px 0;
+	text-align:center;
+}
+table caption{
+	background:#0283C5;
+}
+
+table tr{
+	line-height:25px;
+	background:#F0F0F0;
+}
+
+table tr.head{
+	background:#6699FF;
+}
+
+
+
+.cname{
+	background:#ddd;
+}
+
+.profile{
+	font-size:14px;
+}
+
+.first{
+	text-align:left;
+}
