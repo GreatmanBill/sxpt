@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.0" 
+<web-app version="2.5" 
 	xmlns="http://java.sun.com/xml/ns/javaee" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
-	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
@@ -120,5 +120,23 @@
   <servlet-mapping>
     <servlet-name>AddRsToCourseServelt</servlet-name>
     <url-pattern>/addRsToCourse</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>NewRsClassServlet</servlet-name>
+    <servlet-class>com.sxpt.controller.NewRsClassServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewRsClassServlet</servlet-name>
+    <url-pattern>/newRsClass</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <servlet-name>UploadFileServlet</servlet-name>
+    <servlet-class>com.sxpt.controller.UploadFileServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UploadFileServlet</servlet-name>
+    <url-pattern>/uploadFile</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -1,15 +1,23 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ page import="com.sxpt.module.*"%>
+<%@ page import="java.net.*"%>
 <%
-	String path = request.getContextPath();
+	
+    String path = request.getContextPath();
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	
 	
 	int classid = 0;
 	String class_name = "";
+	SpaceTeaModule spaceTM = new SpaceTeaModule();
 	try{
-		classid = Integer.parseInt(request.getParameter("classid"));	
-		class_name	= request.getParameter("class_name");	
-	}catch(Exception e){}
+		classid = Integer.parseInt(request.getParameter("classid"));
+		System.out.println(request.getQueryString());
+		class_name	= request.getParameter("class_name");
+		class_name = URLDecoder.decode(URLDecoder.decode(class_name));
+		System.out.println("class_name:"+class_name);
+		
+	}catch(Exception e){out.println(path);}
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -36,7 +44,7 @@
 				
 				<%
 					try{
-						SpaceTeaModule spaceTM = new SpaceTeaModule();
+						
 						ArrayList<HashMap<String, Object>> courses = spaceTM.getCoursesByClassid(classid);
 						
 						HashMap<String, Object> temp = null;
@@ -53,6 +61,7 @@
 							cname = temp.get("cname").toString();
 							cprofile = temp.get("cprofile").toString();
 							cresourse = temp.get("cresourse").toString();
+							
 							out.print("<tr class='cname'><td class='first'>【课程】"+cname+"</td><td><a href='admin/resManage.jsp?cid="+cid+"&cname="+cname+"&classid="+classid+"&class_name="+class_name+"'>资源管理</a></td></tr>");
 							out.print("<tr class='profile' ><td colspan='2' class='first'>【简介】："+cprofile+"</td></tr>");
 						}

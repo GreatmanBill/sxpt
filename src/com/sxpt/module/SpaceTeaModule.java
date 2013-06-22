@@ -615,4 +615,262 @@ public class SpaceTeaModule {
 		
 		 return courses;
 	 }
+	 
+	 
+	 /**
+	  * 添加资源
+	  * @param classid		资源分类id
+	  * @param rsname		资源名
+	  * @param rsurl		资源url，用时间生成
+	  * @param rsprofile	资源简介
+	  * @param rssize		资源大小
+	  * @param rsuser		上传资源用户
+	  * @param ctime		创建资源时间
+	  * @param task			任务是学习或下载
+	  * @return
+	  */
+	 public int addResource(int classid, String rsname, String rsurl, String rsprofile,
+			 String rssize, String rsuser, long ctime, int task){
+		int result = 0;
+		String sql = "insert into resource (classid, rsname, rsurl, rsprofile, rssize,rsuser,ctime,task) value " +
+				"("+classid+",'"+rsname+"','"+rsurl+"','"+rsprofile+"','"+rssize+"','"+rsuser+"',"+ctime+","+task+")";
+
+		System.out.println("addResource: "+sql);
+		
+		try {
+			result = this.statement.executeUpdate(sql);
+			
+			sql = "select max(rsid) as rsid from resource";
+			
+			ResultSet rs = this.statement.executeQuery(sql);
+			int rsid = 0;
+			if(rs.next()){
+				rsid = rs.getInt("rsid");
+			}
+			
+			if(result != 0){
+					
+				result = rsid;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+		 
+	 }
+	 
+	 public int addRs2Course(int rsid, int cid){
+		 int result = 0;
+		 String sql = "select cresourse from course_unit where cid="+cid;
+		 System.out.println("addRs2Course: "+sql);
+		 
+		 try {
+			 ResultSet rs = this.statement.executeQuery(sql);
+			 
+			 String cresourse = "";	
+			 if(rs.next()){
+				cresourse = rs.getString("cresourse");
+			 }
+			 
+			 //将字符串以逗号分开为数组
+			 String[] resids = cresourse.split(",");
+			 System.out.println(cresourse);
+//			 for(int j = 0;j < resids.length;j++){
+//				 System.out.println(resids[j]);
+//			 }
+//			 String ss = "2324,343,35345,234";
+//			 String[] aa = ss.split(",");
+//			 for(int j = 0;j < aa.length;j++){
+//				 System.out.println(aa[j]);
+//			 }
+			 
+			 if(resids != null && resids.length > 0){
+				 cresourse = "";
+				 for(int i = 0;i < resids.length;i++){
+					 if(resids[i].equals(rsid + "")) continue;   //已经上传了就不再上传了
+					 if(i == 0){
+						 cresourse += resids[i].trim();
+					 } else {
+						 cresourse += ","+resids[i].trim();
+					 }					 
+				 }
+				 //加上当前这个资源
+				 cresourse += ","+rsid;
+				 sql = "update course_unit set cresourse = '"+cresourse+"' where cid="+cid;
+				 result = this.statement.executeUpdate(sql);
+			 }
+			 
+		 } catch (SQLException e) {
+			 e.printStackTrace();
+		 }
+		 
+		 return result;
+		 
+	 }
+	 
+	 /**
+	  * 通过课程的id来得到该课程的所有资源
+	  * @param cid
+	  * @return
+	  */
+	 public ArrayList<HashMap<String, Object>> getResourceByCid(int cid){
+		int result = 0;
+		
+		ArrayList<HashMap<String, Object>> resources  = null;
+		HashMap<String, Object> temp = null;
+		try {
+			
+			//获得资源的所有id	
+			String sql = "select cresourse from course_unit where cid = "+cid;
+			System.out.println("getResourceByCid: "+sql);
+			ResultSet rs = this.statement.executeQuery(sql);
+			String[] rsids  = null;
+			if(rs.next()){
+				rsids = rs.getString("cresourse").split(",");
+			}
+			
+			String rsidIn = "";
+			int i;
+			for(i = 0;i < rsids.length;i++){
+				if(i == 0){
+					rsidIn += rsids[i];
+				} else {					
+					rsidIn += ","+rsids[i];
+				}
+			}
+			
+			sql = "select * from resource where rsid in ("+rsidIn+")";
+			System.out.println("getResourceByCid: "+sql);
+			rs = this.statement.executeQuery(sql);
+			
+			resources = new ArrayList<HashMap<String, Object>>();
+			
+			while(rs.next()){
+				temp = new HashMap<String, Object>();
+				temp.put("rsid", rs.getInt("rsid"));
+				temp.put("rsname", rs.getString("rsname"));
+				temp.put("rsprofile", rs.getString("rsprofile"));
+				temp.put("rssize", rs.getString("rssize"));
+				temp.put("rsurl", rs.getString("rsurl"));
+				temp.put("rsuser", rs.getString("rsuser"));
+				temp.put("ctime", rs.getLong("ctime"));
+				temp.put("classid", rs.getInt("classid"));
+				temp.put("task", rs.getInt("task"));
+				resources.add(temp);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return resources;
+	 }
+	 
+	 /**
+	  * 通过资源分类id来获得其分类下的所有资源
+	  * @param classid
+	  * @return
+	  */
+	 public ArrayList<HashMap<String, Object>> getResourceByClassid(int classid){
+		 int result = 0;
+			
+			ArrayList<HashMap<String, Object>> resources  = null;
+			HashMap<String, Object> temp = null;
+			try {
+				
+				//获得资源的所有id	
+				String sql = "select * from resource where classid="+classid;
+				System.out.println("getResourceByClassid: "+sql);
+				ResultSet rs = this.statement.executeQuery(sql);
+				
+				resources = new ArrayList<HashMap<String, Object>>();
+				
+				while(rs.next()){
+					temp = new HashMap<String, Object>();
+					temp.put("rsid", rs.getInt("rsid"));
+					temp.put("rsname", rs.getString("rsname"));
+					temp.put("rsprofile", rs.getString("rsprofile"));
+					temp.put("rssize", rs.getString("rssize"));
+					temp.put("rsurl", rs.getString("rsurl"));
+					temp.put("rsuser", rs.getString("rsuser"));
+					temp.put("ctime", rs.getLong("ctime"));
+					temp.put("classid", rs.getInt("classid"));
+					temp.put("task", rs.getInt("task"));
+					resources.add(temp);
+				}
+			
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			return resources;
+	 }
+	 
+
+	 /**
+	  * 新建资源分类
+	  * @param class_name	资源分类名
+	  * @return
+	  */
+	 public int newRsClass(String class_name){
+		 
+		int result = 0;
+		String sql = "insert into resourse_class (class_name) value ('"+class_name+"')";
+
+		System.out.println("newRsClass: "+sql);
+		
+		try {
+			result = this.statement.executeUpdate(sql);
+			
+			sql = "select max(classid) as classid from resourse_class";
+			
+			ResultSet rs = this.statement.executeQuery(sql);
+			int classid = 0;
+			if(rs.next()){
+				classid = rs.getInt("classid");
+			}
+			
+			if(result != 0){
+					
+				result = classid;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	 }
+	 
+	 /**
+	  * 获得所有的资源分类
+	  * @return
+	  */
+	 public ArrayList<HashMap<String, Object>> getAllRsClass(){
+		 int result = 0;
+			
+			String sql = "select * from resourse_class order by classid desc";
+			
+			System.out.println("getAllRsClass: "+sql);
+			ArrayList<HashMap<String, Object>> resourse_classes = null;
+			HashMap<String, Object> temp = null;
+			try {
+				ResultSet rs = this.statement.executeQuery(sql);
+				resourse_classes = new ArrayList<HashMap<String, Object>>();
+				
+				while(rs.next()){
+					temp = new HashMap<String, Object>();
+					temp.put("classid", rs.getInt("classid"));
+					temp.put("class_name", rs.getString("class_name"));
+					resourse_classes.add(temp);
+				}
+			
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			return resourse_classes;
+	 }
 }

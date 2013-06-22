@@ -150,7 +150,14 @@ public class File
                        "Unable to save file in the DataBase (1130)." ) ;
           }
      }
-
+     
+     public void delete(String fileName){
+    	 java.io.File file = new java.io.File(fileName);     
+         if(file.isFile() && file.exists()){     
+             file.delete();     
+             System.out.println("删除单个文件"+fileName+"成功！");
+         }
+     }
 
      public boolean isMissing()
      {

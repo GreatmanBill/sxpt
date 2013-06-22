@@ -1,0 +1,77 @@
+一、用户模块:
+
+
+1、导入学生信息
+叙述：负责人导入全体学生的信息，包括：学号，姓名，班级，初始密码
+	boolean leadInStu(String sno, String sname, String sclass, String staPsw, int bid);
+									学号，姓名，班级，初始密码，所属批次
+2、新建成绩单
+叙述：负责人导入完学生账号后，自动的为之创建一个成绩单，包括：
+	学号，姓名，班级，实训批次
+	 boolean newReport(String sno, String sname, String sclass, int bid );
+	注:实训方向在报名后更新，直接用一个SQL语句更新
+	
+3、学生报名
+叙述：负责人导入全体学生的信息，包括：学号，姓名，班级，初始密码，学生报名，必须是在
+教师导入的账号中才能报名成功，报名需要选择教师和方向
+	boolean register(String sno, int tid, String t_direct):学号，选择教师id，实训方向
+	注:实训方向在报名后更新，直接用一个SQL语句更新
+	
+4、教师账号导入
+叙述：负责人导入全体参加实训教师信息，包括:姓名，性别，实训方向，初始密码
+	boolean leadInTea(String tname, String staPsw, String t_direct, String tsex);
+	
+二、课程实训
+1、新建实训批次
+叙述：每次开始实训前，实训负责人需要新建一个实训批次，传入实训批次名
+	boolean newBatch(String bname);
+
+2、新建实训方向
+叙述：新建一个实训方向，需要选择实训批次，并指定实训方向名称
+	boolean newTrain_dr(int bid,  String dname)
+
+//??立中 
+3、修改或添加某个同学的成绩（课内）
+叙述：在每一次实训实训完毕，教师可对学生进行评分
+								成绩单id， 第几次课内实训， 课内实训成绩
+	boolean updateInReport( int rid, int inTimes, int inGrade )
+
+4、修改或添加某个同学的成绩（课外）
+叙述：学生项目实训完毕，教师可以给出学生实训项目成绩
+	boolean updateOutSum(int rid, int outSum)
+	
+5、更新成绩单课内总成绩
+叙述：学生课内实训完毕，可以给出学生的课内实训成绩
+	boolean updateInSum(int rid, int inSum);
+	
+6、上传资料
+ 叙述：负责人或教师可上传资料，上传资料包括信息：资料名，所属实训方向
+	boolean uploadRes(String rsname, int did);
+
+7、构建课程单元
+叙述：负责人或教师可在开始课程实训前或是实训过程中，修该或增加课程单元，
+增加一个课程单元包括：课程单元名，所属实训方向，课程简介， 资源列表及任务分配
+	boolean addCourseUnit(String cname, int did, String cprofile, String cresouce);
+	具体做法：资源存储的是资源的id，用“，”号分割，存入数据库
+	任务直接更新资源的task字段
+	boolean updateResTask(int task);默认是0，下载，1是学习
+	
+8、论坛交流，留言
+叙述：当学生有疑问时，可以留言，等待教师解答
+	消息内容，发送人uid， 发送人姓名，发送人类型（0学生，1教师），发送消息时间
+	boolean sendMessage(String fcontent, int fuid, String fname, int ftype, long ctime);
+	
+9、项目成员分组
+叙述：在进行项目实训时，需对学生进行分组
+	教师id， 所属实训方向，组员(把组员id用逗号分隔，存入数据库)
+	boolean divideGroup(int tid, int did, String member)
+	
+10、项目总结
+叙述：学生在项目实训完毕后，进行一个项目总结，来反馈实训情况
+	项目名称， 总结内容， 学生姓名， 教师id
+	boolean itemSummary(String itemName, String sumCon, String sname, int tid);
+
+11、首页信息发布
+叙述：实训负责人或教师可以发布公告或要闻
+	信息标题， 信息发布人uid， 发布人姓名， 发布信息内容，发布信息时间，发布信息类型
+	boolean addNews(String info_title, int info_uid, String info_name, String info_con, long ctime, int type);

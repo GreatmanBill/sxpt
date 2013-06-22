@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ page import="com.sxpt.module.*"%>
+<%@ page import="java.net.*"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -44,7 +45,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						temp = course_classes.get(i);
 						classid = Integer.parseInt(temp.get("classid").toString());
 						class_name = temp.get("class_name").toString();
-						out.print("<tr class='cname'><td class='first'>"+class_name+"</td><td><a href='admin/viewCourseClass.jsp?classid="+classid+"&class_name="+class_name+"'>查看</a></td></tr>");
+						String tClass_name = URLEncoder.encode(URLEncoder.encode(class_name));
+						String url = "admin/viewCourseClass.jsp?classid="+classid+"&class_name="+tClass_name;
+						//url = URLEncoder.encode(url);
+						out.print("<tr class='cname'><td class='first'>"+class_name+"</td><td><a href='"+url+"'>查看</a></td></tr>");
 					}
 				}catch(Exception e){}  
 			 %>
