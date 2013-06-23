@@ -22,7 +22,7 @@
   <servlet-mapping>
   	<servlet-name>OutReportServlet</servlet-name>
   	<url-pattern>/updateOutSum</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping>  
   <servlet>
   	<servlet-name>LoginServlet</servlet-name>
   	<servlet-class>com.sxpt.controller.LoginServlet</servlet-class>
