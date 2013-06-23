@@ -985,4 +985,64 @@ public class SpaceTeaModule {
 		return res;
 		 
 	 }
+	 
+	 /**
+	  * 通过传入方向名来获取该方向所分配的方案的所有课程和项目
+	  * @param t_direct
+	  * @return
+	  */
+	 public HashMap<String, Object> getCourseAndItemByDirect(String t_direct){
+	 	HashMap<String, Object> res  = null;
+		HashMap<String, Object> temp = null;
+		try {
+			
+			//获得资源的所有id	
+			String sql = "select courseId,itemid from train_plan where did = ( select max(did) as did from train_dr where dname = '"+t_direct+"' )";
+			System.out.println("getCourseByDirect: "+sql);
+			ResultSet rs = this.statement.executeQuery(sql);
+			String[] cids  = null;
+			String[] itemids  = null;
+			if(rs.next()){
+				cids = rs.getString("courseId").split(",");
+				itemids = rs.getString("itemid").split(",");
+			}
+			
+			//查课程
+			String courseId = "";
+			int i;
+			for(i = 0;i < cids.length;i++){
+				if(i == 0){
+					courseId += cids[i];
+				} else {					
+					courseId += ","+cids[i];
+				}
+			}
+			
+			sql = "select * from course_unit where cid in ("+courseId+")";
+			System.out.println("getCourseByDirect: "+sql);
+			rs = this.statement.executeQuery(sql);
+			
+			ArrayList<HashMap<String, Object>> courses = new ArrayList<HashMap<String, Object>>();
+			
+			while(rs.next()){
+				temp = new HashMap<String, Object>();
+				temp.put("cid", rs.getInt("cid"));
+				temp.put("cname", rs.getString("cname"));
+				temp.put("cprofile", rs.getString("cprofile"));
+				temp.put("cresourse", rs.getString("cresourse"));
+				temp.put("classid", rs.getInt("classid"));
+				courses.add(temp);
+			}
+			
+			res = new HashMap<String, Object>();
+			res.put("courses", courses);
+			//TODO查项目
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return res;
+		 
+	 }
 }

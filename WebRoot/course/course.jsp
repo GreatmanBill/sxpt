@@ -25,14 +25,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript">
 		<!--
 
-		d = new dTree('d');
+		
 		
 		<%
 			int type = 0;
+			String t_direct = "";
+			String linkHTML = "";
 			try{
 				HashMap<String ,Object> user = (HashMap<String ,Object>)session.getAttribute("user");
 				type = Integer.parseInt(user.get("type").toString());
-				String t_direct = "";
+				
 				int bid = 0;
 				if(type == 0){//学生
 					Student stu = (Student)user.get("student");
@@ -43,17 +45,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					Teacher tea = (Teacher)user.get("teacher");
 					t_direct = tea.getT_direct();
 				}
+				
+				System.out.println("t_direct:"+t_direct);
+				SpaceTeaModule spaceTM = new SpaceTeaModule();
+				HashMap<String, Object> res = spaceTM.getCourseAndItemByDirect(t_direct);
+				
+				ArrayList<HashMap<String, Object>> courses = (ArrayList<HashMap<String, Object>>)res.get("courses");
+				HashMap<String, Object> temp = null;
+				for(int i = 0;i < courses.size();i++){
+					temp = courses.get(i);
+					int cid = Integer.parseInt(temp.get("cid").toString());
+					String cname = temp.get("cname").toString();
+					linkHTML += "d.add("+(i + 1)+",0,'"+cname+"','course/viewCourse?cid="+cid+"');";
+				}
+				
 			}catch(Exception e){}
 		 %>
 		var type = <%=type%>;
-
-		d.add(0,-1,'JAVA方向');
+		d = new dTree('d');
+		d.add(0,-1,'<%=t_direct %>');
+		/*
 		d.add(1,0,'Java软件工程师实训简介','example01.html');
-		d.add(2,1,'Web页面技术','example01.html');
-		d.add(3,1,'Java基础','example01.html');
-		d.add(4,1,'J2EE企业级开发','example01.html');
-		d.add(5,1,'Oracle','example01.html');
-		d.add(6,1,'基础知识综合实例','example01.html');
+		d.add(2,0,'Web页面技术','sdfdsf');
+		d.add(3,0,'Java基础','example01.html');
+		d.add(4,0,'J2EE企业级开发','example01.html');
+		d.add(5,0,'Oracle','example01.html');
+		d.add(6,0,'基础知识综合实例','example01.html');*/
+		<%=linkHTML %>
 		document.write(d);
 
 		//-->
