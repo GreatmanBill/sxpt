@@ -16,10 +16,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<h2>软件实训平台</h2>
 			<div id="nav-main">
 				<ul>
-					<span>|</span><li><a href="space/left.jsp" target="left">个人空间</a></li>
-					<span>|</span><li><a href="">课程实训</a></li>
-					<span>|</span><li><a href="">项目实训</a></li>
-					<span>|</span><li><a href="">管理中心</a></li>
+					<span>|</span><li><a href="space/space.jsp" target="left">个人空间</a></li>
+					<span>|</span><li><a href="course/course.jsp" target="left">课程实训</a></li>
+					<span>|</span><li><a href="project/project.jsp" target="left">项目实训</a></li>
+					<span>|</span><li><a href="left.jsp" target="left">管理中心</a></li>
 					<span>|</span>
 				</ul>
 			</div>

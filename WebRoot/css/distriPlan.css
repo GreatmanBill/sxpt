@@ -1,0 +1,40 @@
+body{
+	background:#fff;
+}
+.back{
+	display:inline-block;
+	width:60px;
+	margin-bottom:30px;
+	line-height:25px;
+	text-align:center;
+	background:#4EBAF3;
+}
+#distriPlan{
+	padding:60px 0 0 60px;
+}
+
+#distriPlan form{
+	margin:40px 0;
+}
+
+#distriPlan form p{
+	margin:20px 0 0 0;
+}
+
+#distriPlan form label{
+	display:inline-block;
+	width:80px;
+}
+
+#distriPlan form select {
+	display:inline-block;
+	width:150px;
+}
+
+.sub{
+	display:inline-block;
+	width:60px;
+	height:25px;
+	line-height:25px;
+	font-size:16px;
+}

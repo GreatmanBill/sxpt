@@ -1,0 +1,46 @@
+body{
+	background:#fff;
+}
+
+#planManage{
+	padding:60px 0 0 40px;
+	width:90%;
+}
+
+#planManage h1{
+	text-align:center;
+}
+#planManage #newPlan{
+	margin:30px 0 0 0;
+}
+
+#planManage #newPlan a{
+	display:inline-block;
+	width:100px;
+	line-height:25px;
+	background:#4EBAF3;
+	text-align:center;
+}
+
+#planManage table{
+	margin:40px 0 0 0;
+	width:100%;
+	text-align:center;
+}
+
+#planManage table caption{
+	background:#0283C5;
+}
+
+#planManage table .head{
+	background:#6699FF;
+}
+
+#planManage table .first{
+	text-align:left;
+}
+
+#planManage table tr{
+	line-height:25px;
+}
+

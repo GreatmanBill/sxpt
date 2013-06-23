@@ -7,6 +7,7 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
+   
   <servlet>
   	<servlet-name>InReportServlet</servlet-name>
   	<servlet-class>com.sxpt.controller.InReportServlet</servlet-class>
@@ -14,7 +15,7 @@
   <servlet-mapping>
   	<servlet-name>InReportServlet</servlet-name>
   	<url-pattern>/updateInReport</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> 
   <servlet>
   	<servlet-name>OutReportServlet</servlet-name>
   	<servlet-class>com.sxpt.controller.OutReportServlet</servlet-class>
@@ -75,5 +76,77 @@
   <servlet-mapping>
     <servlet-name>NewDirectServlet</servlet-name>
     <url-pattern>/newDirect</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>NewPlanServlet</servlet-name>
+    <servlet-class>com.sxpt.controller.NewPlanServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewPlanServlet</servlet-name>
+    <url-pattern>/newPlan</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>DistriPlanServlet</servlet-name>
+    <servlet-class>com.sxpt.controller.DistriPlanServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DistriPlanServlet</servlet-name>
+    <url-pattern>/distriPlan</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>NewCourseClassServlect</servlet-name>
+    <servlet-class>com.sxpt.controller.NewCourseClassServlect</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewCourseClassServlect</servlet-name>
+    <url-pattern>/newCourseClass</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>NewCourseServlet</servlet-name>
+    <servlet-class>com.sxpt.controller.NewCourseServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewCourseServlet</servlet-name>
+    <url-pattern>/newCourse</url-pattern>
+  </servlet-mapping>
+   
+  <servlet>
+    <servlet-name>AddRsToCourseServelt</servlet-name>
+    <servlet-class>com.sxpt.controller.AddRsToCourseServelt</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddRsToCourseServelt</servlet-name>
+    <url-pattern>/addRsToCourse</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>NewRsClassServlet</servlet-name>
+    <servlet-class>com.sxpt.controller.NewRsClassServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewRsClassServlet</servlet-name>
+    <url-pattern>/newRsClass</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>UploadFileServlet</servlet-name>
+    <servlet-class>com.sxpt.controller.UploadFileServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UploadFileServlet</servlet-name>
+    <url-pattern>/uploadFile</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>MakePlanServlet</servlet-name>
+    <servlet-class>com.sxpt.controller.MakePlanServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MakePlanServlet</servlet-name>
+    <url-pattern>/makePlan</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -35,6 +35,10 @@ body{
 	background:#6699FF;
 }
 
+#signManage table tr{
+	line-height:25px;
+}
+
 #signManage table .has{
 	background:#DDDDDD;
 }

@@ -28,9 +28,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		d.add(0,-1,'管理中心');
 		d.add(1,0,'资源管理','example01.html');
-		d.add(2,1,'课程管理','example01.html');
+		d.add(2,1,'课程管理','admin/courseManage.jsp','','right');
 		d.add(3,1,'项目管理','example01.html');
-		d.add(4,1,'实训方案管理','example01.html');
+		d.add(18,1,'资料上传','admin/upload.jsp','','right');
+		d.add(4,1,'实训方案管理','admin/planManage.jsp','','right');
+		
+		
 		
 		d.add(5,0,'实训组织与评估','example01.html');
 		d.add(6,5,'实训报名管理','admin/signManage.jsp','','right');

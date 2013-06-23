@@ -41,11 +41,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<col width="10%"/>
 					<col width="10%"/>
 					<tr class="head"><th>方向名称</th><th colspan="2">操作</th></tr>
-					
+					<%
+						SpaceTeaModule spaceTM = new SpaceTeaModule();
+				
+						ArrayList<HashMap<String, Object>> t_directs  = spaceTM.getDirectssByBid(bid);
+						
+						try{
+							int did = 0;
+							String dname = "";
+							bid = 0;
+							String dprofile = "";
+							HashMap<String, Object> temp = null;
+							for(int i = 0 ;i < t_directs.size();i++){
+								temp = t_directs.get(i);
+								did = Integer.parseInt(temp.get("did").toString());
+								dname = temp.get("dname").toString();
+								bid = Integer.parseInt(temp.get("bid").toString());
+								dprofile = temp.get("dprofile").toString();
+								out.print("<tr class='has'><td class='bname'>"+dname+"</td><td>修改</td><td>删除</td></tr>");
+								out.print("<tr><td class='bname' style='font-size:14px;' colspan='3'>【简介】："+dprofile+"</td></tr>");
+							}
+						}catch(Exception e){}
+					 %>
+					 <!-- 
 					<tr class="has"><td class="bname">2013年春季学期实训</td><td>修改</td><td>删除</td></tr>
 					<tr><td class="bname" colspan="3">方向简介</td></tr>
 					<tr class="has"><td class="bname">2012年春季学期实训</td><td>修改</td><td>删除</td></tr>
 					<tr><td class="bname" colspan="3">方向简介</td></tr>
+					-->
 			</table>
 			
 		</div>

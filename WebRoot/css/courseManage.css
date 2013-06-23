@@ -1,0 +1,58 @@
+body{
+	background:#fff;
+}
+
+#courseManage{
+	padding:60px 0 0 40px;
+}
+
+#courseManage h1{
+	text-align:center;
+}
+
+.newCoure{
+	margin:20px 0;
+	padding:0 0 0 80px;
+}
+
+.newCoure a{
+	display:inline-block;
+	width:120px;
+	height:25px;
+	font-size:16px;
+	line-height:25px;
+	text-align:center;
+	background:#4EBAF3;
+}
+
+table{
+	width:85%;
+	margin:40px auto;
+	text-align:center;
+}
+table caption{
+	background:#0283C5;
+}
+
+table tr{
+	line-height:25px;
+	background:#F0F0F0;
+}
+
+table tr.head{
+	background:#6699FF;
+}
+
+
+
+.cname{
+	background:#ddd;
+}
+
+.profile{
+	font-size:14px;
+}
+
+.first{
+	text-align:left;
+}

@@ -12,7 +12,7 @@
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'leadStu.jsp' starting page</title>
+    <title>导入学生信息</title>
 	<link rel="stylesheet" type="text/css" href="css/space.css">
 	<link rel="stylesheet" type="text/css" href="css/lead.css">
 
