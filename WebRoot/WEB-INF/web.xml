@@ -7,6 +7,7 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
+   
   <servlet>
   	<servlet-name>InReportServlet</servlet-name>
   	<servlet-class>com.sxpt.controller.InReportServlet</servlet-class>
@@ -14,7 +15,7 @@
   <servlet-mapping>
   	<servlet-name>InReportServlet</servlet-name>
   	<url-pattern>/updateInReport</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> 
   <servlet>
   	<servlet-name>OutReportServlet</servlet-name>
   	<servlet-class>com.sxpt.controller.OutReportServlet</servlet-class>
@@ -94,7 +95,7 @@
     <servlet-name>DistriPlanServlet</servlet-name>
     <url-pattern>/distriPlan</url-pattern>
   </servlet-mapping>
-  
+
   <servlet>
     <servlet-name>NewCourseClassServlect</servlet-name>
     <servlet-class>com.sxpt.controller.NewCourseClassServlect</servlet-class>
@@ -102,7 +103,7 @@
   <servlet-mapping>
     <servlet-name>NewCourseClassServlect</servlet-name>
     <url-pattern>/newCourseClass</url-pattern>
-  </servlet-mapping>NewCourseServlet
+  </servlet-mapping>
   
   <servlet>
     <servlet-name>NewCourseServlet</servlet-name>
@@ -112,7 +113,7 @@
     <servlet-name>NewCourseServlet</servlet-name>
     <url-pattern>/newCourse</url-pattern>
   </servlet-mapping>
-  
+   
   <servlet>
     <servlet-name>AddRsToCourseServelt</servlet-name>
     <servlet-class>com.sxpt.controller.AddRsToCourseServelt</servlet-class>
@@ -139,4 +140,5 @@
     <servlet-name>UploadFileServlet</servlet-name>
     <url-pattern>/uploadFile</url-pattern>
   </servlet-mapping>
+
 </web-app>

@@ -30,14 +30,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			int type = Integer.parseInt(user.get("type").toString());
 		 %>
 		var type = <%=type%>;
-
+		
+		//学生
 		d.add(0,-1,'JAVA方向');
-		d.add(1,0,'Java软件工程师实训简介','example01.html');
-		d.add(2,1,'Web页面技术','example01.html');
-		d.add(3,1,'Java基础','example01.html');
-		d.add(4,1,'J2EE企业级开发','example01.html');
-		d.add(5,1,'Oracle','example01.html');
-		d.add(6,1,'基础知识综合实例','example01.html');
+		d.add(1,0,'项目首页','example01.html');
+		d.add(2,1,'项目启动','example01.html');
+		d.add(3,1,'需求分析','example01.html');
+		d.add(4,1,'系统设计','example01.html');
+		d.add(5,1,'代码实现','example01.html');
+		d.add(6,1,'项目总结','example01.html');
+		
 		document.write(d);
 
 		//-->
