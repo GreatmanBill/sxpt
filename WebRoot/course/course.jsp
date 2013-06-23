@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page import="com.sxpt.classes.*"%>
+<%@ page import="com.sxpt.module.*"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -26,8 +28,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		d = new dTree('d');
 		
 		<%
-			HashMap<String ,Object> user = (HashMap<String ,Object>)session.getAttribute("user");
-			int type = Integer.parseInt(user.get("type").toString());
+			int type = 0;
+			try{
+				HashMap<String ,Object> user = (HashMap<String ,Object>)session.getAttribute("user");
+				type = Integer.parseInt(user.get("type").toString());
+				String t_direct = "";
+				int bid = 0;
+				if(type == 0){//学生
+					Student stu = (Student)user.get("student");
+					bid = stu.getBid();
+					t_direct = stu.getT_direct();
+					
+				} else {	  //教师
+					Teacher tea = (Teacher)user.get("teacher");
+					t_direct = tea.getT_direct();
+				}
+			}catch(Exception e){}
 		 %>
 		var type = <%=type%>;
 

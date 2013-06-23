@@ -873,4 +873,116 @@ public class SpaceTeaModule {
 			
 			return resourse_classes;
 	 }
+	 
+	 /**
+	  * 添加课程到实训方案中
+	  * @param trainid		方案id
+	  * @param cid			课程id
+	  * @return
+	  */
+	 public int addCourse2Plan(int trainid , int cid){
+		 int result = 0;
+		 String sql = "select courseId from train_plan where trainid = "+trainid;
+		 System.out.println("addCourse2Plan: "+sql);
+		 
+		 try {
+			 ResultSet rs = this.statement.executeQuery(sql);
+			 
+			 String courseId = "";	
+			 if(rs.next()){
+				 courseId = rs.getString("courseId");
+			 }
+			 
+			 //将字符串以逗号分开为数组
+			 String[] cids = courseId.split(",");
+			 System.out.println(courseId);
+			 
+			 if(cids != null && cids.length > 0){
+				 courseId = "";
+				 for(int i = 0;i < cids.length;i++){
+					 if(cids[i].trim().equals(cid + "")) continue;   //已经添加的课程就不能再添加了
+					 if(cids[i].equals("'0'")){
+						 cids[i] = "0";
+					 }
+					 if(i == 0){
+						 courseId += cids[i].trim();
+					 } else {
+						 courseId += ","+cids[i].trim();
+					 }					 
+				 }
+				 //加上当前这个资源
+				 courseId += ","+cid;
+				 sql = "update train_plan set courseId = '"+courseId+"' where trainid="+trainid;
+				 System.out.println("addCourse2Plan: "+sql);
+				 result = this.statement.executeUpdate(sql);
+			 }
+			 
+		 } catch (SQLException e) {
+			 e.printStackTrace();
+		 }
+		 
+		 return result;
+		 
+	 }
+	 
+	 /**
+	  * 根据trainid来获取该方案下的所有课程及项目
+	  * @param trainid
+	  */
+	 public HashMap<String, Object> getCoursesAndItemByTrainid(int trainid){
+	 	int result = 0;
+		
+	 	HashMap<String, Object> res  = null;
+		HashMap<String, Object> temp = null;
+		try {
+			
+			//获得资源的所有id	
+			String sql = "select courseId,itemid from train_plan where trainid = "+trainid;
+			System.out.println("getCoursesByTrainid: "+sql);
+			ResultSet rs = this.statement.executeQuery(sql);
+			String[] cids  = null;
+			String[] itemids  = null;
+			if(rs.next()){
+				cids = rs.getString("courseId").split(",");
+				itemids = rs.getString("itemid").split(",");
+			}
+			
+			//查课程
+			String courseId = "";
+			int i;
+			for(i = 0;i < cids.length;i++){
+				if(i == 0){
+					courseId += cids[i];
+				} else {					
+					courseId += ","+cids[i];
+				}
+			}
+			
+			sql = "select * from course_unit where cid in ("+courseId+")";
+			System.out.println("getCoursesByTrainid: "+sql);
+			rs = this.statement.executeQuery(sql);
+			
+			ArrayList<HashMap<String, Object>> courses = new ArrayList<HashMap<String, Object>>();
+			
+			while(rs.next()){
+				temp = new HashMap<String, Object>();
+				temp.put("cid", rs.getInt("cid"));
+				temp.put("cname", rs.getString("cname"));
+				temp.put("cprofile", rs.getString("cprofile"));
+				temp.put("cresourse", rs.getString("cresourse"));
+				temp.put("classid", rs.getInt("classid"));
+				courses.add(temp);
+			}
+			
+			res = new HashMap<String, Object>();
+			res.put("courses", courses);
+			//TODO查项目
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return res;
+		 
+	 }
 }

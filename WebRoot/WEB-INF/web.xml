@@ -132,7 +132,7 @@
     <url-pattern>/newRsClass</url-pattern>
   </servlet-mapping>
   
-    <servlet>
+  <servlet>
     <servlet-name>UploadFileServlet</servlet-name>
     <servlet-class>com.sxpt.controller.UploadFileServlet</servlet-class>
   </servlet>
@@ -141,4 +141,12 @@
     <url-pattern>/uploadFile</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>MakePlanServlet</servlet-name>
+    <servlet-class>com.sxpt.controller.MakePlanServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MakePlanServlet</servlet-name>
+    <url-pattern>/makePlan</url-pattern>
+  </servlet-mapping>
 </web-app>

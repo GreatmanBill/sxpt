@@ -25,29 +25,28 @@ body{
 	text-align:center;
 }
 
-#addUnit{
-	margin:  0 0 40px 0;
-	padding:30px 0;
+.addUnit{
+	margin:10px auto;
+	width:85%;
 }
-#addUnit form{
-	width:600px;
+.addUnit form{
 	margin:0 auto;
+	text-align:center;
 }
 
-#addUnit p{
+.addUnit p{
 	line-height:25px;
 	margin:5px 0 0 0;
-	padding:0 0 0 180px;
 }
 
-#addUnit p label{
+.addUnit p label{
 	display:inline-block;
 	height:25px;
 	line-height:30px;
 	font-size:16px;
 }
 
-#addUnit p select{
+.addUnit p select{
 	display:inline-block;
 	width:180px;
 	height:25px;
