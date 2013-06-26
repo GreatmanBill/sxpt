@@ -49,17 +49,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				System.out.println("t_direct:"+t_direct);
 				SpaceTeaModule spaceTM = new SpaceTeaModule();
 				HashMap<String, Object> res = spaceTM.getCourseAndItemByDirect(t_direct);
-				
+				System.out.println(res);
 				ArrayList<HashMap<String, Object>> courses = (ArrayList<HashMap<String, Object>>)res.get("courses");
 				HashMap<String, Object> temp = null;
 				for(int i = 0;i < courses.size();i++){
 					temp = courses.get(i);
 					int cid = Integer.parseInt(temp.get("cid").toString());
 					String cname = temp.get("cname").toString();
-					linkHTML += "d.add("+(i + 1)+",0,'"+cname+"','course/viewCourse?cid="+cid+"');";
+					linkHTML += "d.add("+(i + 1)+",0,'"+cname+"','course/viewCourse.jsp?cid="+cid+"','','right');";
 				}
 				
-			}catch(Exception e){}
+				
+				
+			}catch(Exception e){
+				e.printStackTrace();
+			System.out.println(33333);}
+			System.out.println(linkHTML+"llllllllllllllll");
 		 %>
 		var type = <%=type%>;
 		d = new dTree('d');

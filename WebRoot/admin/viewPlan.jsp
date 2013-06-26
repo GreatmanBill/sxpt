@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ page import="com.sxpt.module.*" %>
+<jsp:include page="../validate.jsp" flush="true" />
 <%
 		String path = request.getContextPath();
 		String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -19,16 +20,18 @@
 			for(int i = 0;i < course_classes.size();i++){
 				temp = course_classes.get(i);
 				classid = Integer.parseInt(temp.get("classid").toString());
+				class_name = temp.get("class_name").toString();
 				if(i == 0){
 					selectedClassid = classid;
-				}
-				class_name = temp.get("class_name").toString();
-				courseClassOption += "<option value='"+classid+"'>"+class_name+"</option>";
+					courseClassOption += "<option selected='selected' value='"+classid+"'>"+class_name+"</option>";
+				}else{
+					courseClassOption += "<option value='"+classid+"'>"+class_name+"</option>";
+				}			
 			}
 			
 			//根据课程分类id来获得该课程分类下的所有课程 
 			
-			ArrayList<HashMap<String, Object>> courses = spaceTM.getCoursesByClassid(classid);
+			ArrayList<HashMap<String, Object>> courses = spaceTM.getCoursesByClassid(selectedClassid);
 			
 			for(int i = 0;i < courses.size();i++){
 				temp = courses.get(i);

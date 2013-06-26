@@ -1002,8 +1002,10 @@ public class SpaceTeaModule {
 			ResultSet rs = this.statement.executeQuery(sql);
 			String[] cids  = null;
 			String[] itemids  = null;
+			
 			if(rs.next()){
 				cids = rs.getString("courseId").split(",");
+				System.out.println(rs.getString("courseId"));
 				itemids = rs.getString("itemid").split(",");
 			}
 			
@@ -1044,5 +1046,56 @@ public class SpaceTeaModule {
 		
 		return res;
 		 
+	 }
+	 
+	 /**
+	  * 通过cid获得该课程
+	  * @param cid
+	  * @return
+	  */
+	 public HashMap<String, Object> getCourseByCid(int cid){
+		 String sql = "select * from course_unit where cid = "+cid;
+		 System.out.println("getCourseByCid: "+sql);
+		 HashMap<String,Object> course = null;
+		 try {
+			 ResultSet rs = this.statement.executeQuery(sql);
+
+			 course = new HashMap<String,Object>();
+			 if(rs.next()){
+				 course.put("cid", cid);
+				 course.put("cname", rs.getString("cname"));
+				 course.put("cprofile", rs.getString("cprofile"));
+				 course.put("cresourse", rs.getString("cresourse"));
+				 course.put("classid", rs.getString("classid"));
+			 }
+			 
+		 } catch (SQLException e) {
+			 e.printStackTrace();
+		 }
+		 
+		 return course;
+		 
+	 }
+	 
+	 /**
+	  * 通过rsurl得到该资源的文件名
+	  * @param rsurl
+	  * @return
+	  */
+	 public String getRsnameByRsurl(String rsurl){
+		 String sql = "select rsname  from resource where rsurl = '"+rsurl+"'";
+		 
+		 String rsname = "";
+		 
+		 try{
+			 ResultSet rs = this.statement.executeQuery(sql);
+			 
+			 if(rs.next()){
+				 rsname = rs.getString("rsname");
+			 }
+			 
+		 }catch(Exception e){}
+		 
+		 return rsname;
 	 }
 }

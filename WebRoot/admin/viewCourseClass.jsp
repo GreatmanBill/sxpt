@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ page import="com.sxpt.module.*"%>
 <%@ page import="java.net.*"%>
+<jsp:include page="../validate.jsp" flush="true" />
 <%
 	
     String path = request.getContextPath();
@@ -52,6 +53,7 @@
 						String cname = "";
 						String cprofile = "";
 						String cresourse = "";
+						String tClass_name = URLEncoder.encode(URLEncoder.encode(class_name));
 						//System.out.println(courses.toString());
 						for(int i = 0;i < courses.size();i++){
 						 	
@@ -62,7 +64,7 @@
 							cprofile = temp.get("cprofile").toString();
 							cresourse = temp.get("cresourse").toString();
 							
-							out.print("<tr class='cname'><td class='first'>【课程】"+cname+"</td><td><a href='admin/resManage.jsp?cid="+cid+"&cname="+cname+"&classid="+classid+"&class_name="+class_name+"'>资源管理</a></td></tr>");
+							out.print("<tr class='cname'><td class='first'>【课程】"+cname+"</td><td><a href='admin/resManage.jsp?cid="+cid+"&cname="+cname+"&classid="+classid+"&class_name="+tClass_name+"'>资源管理</a></td></tr>");
 							out.print("<tr class='profile' ><td colspan='2' class='first'>【简介】："+cprofile+"</td></tr>");
 						}
 					}catch(Exception e){}

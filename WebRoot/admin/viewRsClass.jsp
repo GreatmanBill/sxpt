@@ -2,6 +2,7 @@
 <%@ page import="com.sxpt.module.*"%>
 <%@ page import="java.net.*"%>
 <%@ page import="java.text.*"%>
+<jsp:include page="../validate.jsp" flush="true" />
 <%
 	
     String path = request.getContextPath();

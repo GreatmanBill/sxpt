@@ -1,8 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ page import="com.sxpt.module.*" %>
 <%@ page import="java.text.*"%>
-<%@ page import="java.net.*"%>
-<jsp:include page="../validate.jsp" flush="true" />
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -11,16 +9,15 @@
 	int cid = 0;
 	String cname = "";
 	try{
-		classid = Integer.parseInt(request.getParameter("classid"));	
-		class_name	= request.getParameter("class_name");	
-		class_name = URLDecoder.decode(URLDecoder.decode(class_name));
-		class_name = URLEncoder.encode(URLEncoder.encode(class_name));
-		cid = Integer.parseInt(request.getParameter("cid"));	
-		cname	= request.getParameter("cname");	
-		
+		cid = Integer.parseInt(request.getParameter("cid"));			
 	}catch(Exception e){}
 	
 	SpaceTeaModule spaceTM = new SpaceTeaModule();
+	String cprofile = "";
+	try{
+		HashMap<String,Object> course = spaceTM.getCourseByCid(cid);
+		cprofile = course.get("cprofile").toString();
+	}catch(Exception e){}
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -28,37 +25,16 @@
   <head>
     <base href="<%=basePath%>">
     
-    <title>资源管理</title>
+    <title>查看课程</title>
 	<link rel="stylesheet" type="text/css" href="css/space.css">
 	<link rel="stylesheet" type="text/css" href="css/table.css">
 	<link rel="stylesheet" type="text/css" href="css/rsManage.css">
-	<script type="text/javascript" src="js/jquery-1.7.2.js"></script>
-	<script type="text/javascript">
-		$(function(){
-		
-			$("#classid").change( function() {
-				//alert($(this).val());
-				var classid = 0;
-				classid = $(this).val();
-				$.ajax({
-					type: "POST",
-					url: "/sxpt/addRsToCourse?action=getDirects",
-					data: "classid="+classid,
-					success: function(data){						
-						$("#rsid").html(data);
-					}
-				});
-			});
-			
-		});
-	</script>
-
   </head>
   
   <body>
 		<div id="rsManage">
-			<a class="back" href="admin/viewCourseClass.jsp?<% out.print("classid="+classid+"&class_name="+class_name);%>">返回</a>
-			<h2>【课程名】<%=cname %></h2>
+			<h2>【课程名】J2EE</h2>
+			<p class="cprofile" style="margin:20px 0 0 0;">【课程简介】<%=cprofile %>></p>
 			<%
 				String downloadHTML = "";
 				String studyHTML = "";
@@ -104,7 +80,7 @@
 					}catch(Exception e){}
 			%>
 			<table border="1" cellspacing="0" cellpadding="0" id="course">
-				<caption>资源信息</caption>
+				<caption> 任务信息</caption>
 				<col width="10%"/>
 				<col width="40%"/>
 				<col width="15%" />
@@ -140,83 +116,6 @@
 				<tr class="profile" ><td colspan="6" class="first"><p>【文件大小】：12.35kb</p><p>【资源描述】jav知识简介</p></td></tr>
 				-->
 			</table>
-			
-			<div id="addToCourse">
-				<fieldset>
-					<legend>添加资源到该课程</legend>
-					<form action="addRsToCourse?action=addTo" method="post">
-						<input type="hidden" id = "cid" name="cid" value="<%=cid %>"/>
-						<input type="hidden" name="cname" value="<%=cname %>"/>
-						<input type="hidden" name="cclassid" value="<%=classid %>"/>
-						<input type="hidden" name="class_name" value="<%=class_name %>"/>
-						<%
-							ArrayList<HashMap<String, Object>> resourse_classes = spaceTM.getAllRsClass();
-							
-							String rsclassOption = "";
-							int selectedId = 0;
-							try{
-								String tclass_name = "";
-								int tclassid = 0;
-								HashMap<String, Object> temp = null;
-								for(int i = 0;i < resourse_classes.size();i++){
-									temp = resourse_classes.get(i);
-									tclass_name = temp.get("class_name").toString();
-									tclassid = Integer.parseInt(temp.get("classid").toString());
-									if(i == 0){
-										selectedId = tclassid;
-									}
-									rsclassOption += "<option value='"+tclassid+"'>"+tclass_name+"</option>";
-								}
-							}catch(Exception e){}
-							
-							ArrayList<HashMap<String, Object>> resources = spaceTM.getResourceByClassid(selectedId);
-							String rsOption = "";
-							try{
-								String trsname = "";
-								int trsid = 0;
-								HashMap<String, Object> temp = null;
-								for(int i = 0;i < resources.size();i++){
-									temp = resources.get(i);
-									trsname = temp.get("rsname").toString();
-									trsid = Integer.parseInt(temp.get("rsid").toString());
-									rsOption += "<option value='"+trsid+"'>"+trsname+"</option>";
-								}
-							}catch(Exception e){}
-						
-						%>
-						<p><label>资源分类</label><select id = "classid" name="classid"><%=rsclassOption %></select></p>
-						<p><label>资源名称</label><select id = "rsid" name="rsid"><%=rsOption %></select></p>
-						<p><input class='but' type="submit" name="sub" value="添加到该课程" /></p>
-					</form>
-				</fieldset>
-			</div>
-			
-			<div id="uploadRs">
-				<fieldset>
-					<legend>添加资源</legend>
-				<form action="addRsToCourse" method="post" enctype="multipart/form-data">
-					<input type="hidden" name="cid" value="<%=cid %>"/>
-					<input type="hidden" name="cname" value="<%=cname %>"/>
-					<input type="hidden" name="cclassid" value="<%=classid %>"/>
-					<input type="hidden" name="class_name" value="<%=class_name %>"/>
-					<% 
-			  			if(session.getAttribute("message") != null){
-							out.print("<p>"+session.getAttribute("message")+"</p>");
-							session.setAttribute("message", null);
-						}
-  					%>
-					<p><label>资源分类</label><select name="classid"><%=rsclassOption %></select></p>
-					
-					<p><label>任务类型</label><select name="task"><option value="0">下载</option><option value="1">学习</option></select></p>
-					
-					<p><label>资源描述</label><textarea name="rsprofile"cols="80" rows="5"></textarea></p>
-					
-					<p><label>上传文件</label><input type="file" name="rsfile" value="浏览" /></p>
-					
-					<p><input class='but' type="submit" name="sub" value="确定" /><input class='but  res'  type="reset" name="res" value="重置" /></p>
-				</form>
-				</fieldset>
-			<div>
 		</div>
   </body>
 </html>
