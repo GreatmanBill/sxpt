@@ -1045,4 +1045,54 @@ public class SpaceTeaModule {
 		return res;
 		 
 	 }
+	 /**
+	  * 查询老师名字
+	  * @author zhanglz
+	  * @param tid
+	  * @return
+	  * @throws SQLException
+	  */
+	 public String selectTname(int tid) throws SQLException{
+			String result = "ss";		
+			System.out.println("tid+++++"+tid);
+			String sql = "select Tname from teacher where tid = '"+tid+"'";
+			System.out.println("sql+++++"+sql);
+			ResultSet rs = this.statement.executeQuery(sql);
+			System.out.println("rs+++++"+rs);
+			if(rs.next()){
+				
+				result = rs.getString("Tname");
+			}
+			System.out.println(result);
+			return result;		
+		}
+	 /**
+	  * 修改教师信息
+	  * @author zhanglz
+	  * @param tid
+	  * @param tpsw
+	  * @return
+	  * @throws SQLException
+	  */
+	 public int modifyTeaInfo(int tid,String tpsw) throws SQLException{
+			int result = 0;
+			System.out.println("modifyInfo");
+			//String sql = "select Sid from teacher where tid = '"+tid+"'";
+			//System.out.println("sql++++"+sql);
+			//ResultSet rs = this.statement.executeQuery(sql);
+			//int sid = 0;
+			//if(rs.next()){
+			//	sid = rs.getInt("sid");
+			//	System.out.println(sid);
+			//}
+
+			 String sql2 = "update teacher set tpsw = '"+tpsw+"'" +
+		 		"where tid = "+tid;
+			 result = this.statement.executeUpdate(sql2);
+			 System.out.println(result);
+			 
+			 return result; 
+			 
+		 }
+	 
 }

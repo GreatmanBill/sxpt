@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		if(type == 0){
 			d.add(0,-1,'个人空间');
 			d.add(1,0,'我的首页','example01.html');
-			d.add(2,1,'个人信息','example01.html');
+			d.add(2,1,'个人信息','space/personalSinfo.jsp');
 			d.add(3,1,'成绩单','example01.html');
 			d.add(4,1,'实训总结','example01.html');
 		}
@@ -44,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		if(type > 0){
 			d.add(0,-1,'个人空间');
 			d.add(1,0,'我的首页','example01.html');
-			d.add(2,1,'个人信息','example01.html');
+			d.add(2,1,'个人信息','space/personalTinfo.jsp');
 			d.add(3,1,'成绩单','example01.html');
 			d.add(4,1,'实训总结','example01.html');
 		}

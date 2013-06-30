@@ -7,7 +7,6 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
-   
   <servlet>
   	<servlet-name>InReportServlet</servlet-name>
   	<servlet-class>com.sxpt.controller.InReportServlet</servlet-class>
@@ -17,13 +16,29 @@
   	<url-pattern>/updateInReport</url-pattern>
   </servlet-mapping> 
   <servlet>
+  	<servlet-name>UpdateTeaInfo</servlet-name>
+  	<servlet-class>com.sxpt.controller.UpdateTeaInfo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>UpdateTeaInfo</servlet-name>
+  	<url-pattern>/personalTinfo</url-pattern>
+  </servlet-mapping> 
+  <servlet>
+  	<servlet-name>UpdateStuInfo</servlet-name>
+  	<servlet-class>com.sxpt.controller.UpdateStuInfo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>UpdateStuInfo</servlet-name>
+  	<url-pattern>/personalSinfo</url-pattern>
+  </servlet-mapping> 
+  <servlet>
   	<servlet-name>OutReportServlet</servlet-name>
   	<servlet-class>com.sxpt.controller.OutReportServlet</servlet-class>
   </servlet>
   <servlet-mapping>
   	<servlet-name>OutReportServlet</servlet-name>
   	<url-pattern>/updateOutSum</url-pattern>
-  </servlet-mapping>  
+  </servlet-mapping>
   <servlet>
   	<servlet-name>LoginServlet</servlet-name>
   	<servlet-class>com.sxpt.controller.LoginServlet</servlet-class>
