@@ -8,6 +8,8 @@
 		SpaceTeaModule spaceTM = new SpaceTeaModule();
 		String courseClassOption = "";
 		String coursesOption = "";
+		String itemClassOption = "";
+		String itemsOption = "";
 		
 		try{
 			//获得所有的课程分类
@@ -38,6 +40,30 @@
 				int cid = Integer.parseInt(temp.get("cid").toString());
 				String cname = temp.get("cname").toString();
 				coursesOption += "<option value='"+cid+"'>"+cname+"</option>";
+			}
+			
+			//获取所有的项目分类
+			ArrayList<HashMap<String, Object>> item_classes = spaceTM.getAllItemClass();
+			
+			for(int i = 0;i < item_classes.size();i++){
+				temp = item_classes.get(i);
+				classid = Integer.parseInt(temp.get("classid").toString());
+				class_name = temp.get("class_name").toString();
+				if(i == 0){
+					selectedClassid = classid;
+					itemClassOption += "<option selected='selected' value='"+classid+"'>"+class_name+"</option>";
+				}else{
+					itemClassOption += "<option value='"+classid+"'>"+class_name+"</option>";
+				}
+			}
+			
+			//获取选中的分类的下面的所有项目
+			ArrayList<HashMap<String, Object>> items = spaceTM.getItemesByClassid(selectedClassid);
+			for(int i = 0;i < items.size();i++){
+				temp = courses.get(i);
+				int itemid = Integer.parseInt(temp.get("itemid").toString());
+				String item_name = temp.get("item_name").toString();
+				itemsOption += "<option value='"+itemid+"'>"+item_name+"</option>";
 			}
 		}catch(Exception e){}  
 		
@@ -77,6 +103,19 @@
 				});
 			});
 			
+			$("#item_classid").change( function() {
+				//alert($(this).val());
+				var item_classid = 0;
+				item_classid = $(this).val();
+				$.ajax({
+					type: "POST",
+					url: "/sxpt/addItemToPlan?action=getCourses",
+					data: "classid="+item_classid,
+					success: function(data){						
+						$("#itemid").html(data);
+					}
+				});
+			});
 		});
 	</script>
 
@@ -160,22 +199,21 @@
 			</form>
 		</div>
 		
-		<div	 class="addUnit">
+		<div class="addUnit">
 			
-			<form action="" method="post">
+			<form action="addItemToPlan?action=addTo" method="post">
 				<fieldset>
 					<legend>添加项目信息</legend>
-	  
+	  				<input type="hidden" name="trainid" value="<%=trainid %>"/>
+					<input type="hidden" name="did" value="<%=did %>"/>
+					<p>
+						<label>项目分类</label>
+						<select id="item_classid" name="classid"><%=itemClassOption %></select>
+					</p>	
 					<p>
 						<label>项目名称</label>
-						<select name="">
-							<option value="sdf">java基础</option>
-							<option value="sdf">java基础</option>
-							<option value="sdf">java基础</option>
-							<option value="sdf">java基础</option>
-							<option value="sdf">java基础</option>						
-						</select>
-					</p>					
+						<select id= "itemid" name="itemid"><%=itemsOption %></select>
+					</p>				
 					<p><input class="sub" type="submit" name="sub" value="添加"/></p>
 					<br/>
 				</fieldset>

@@ -485,8 +485,82 @@ public class SpaceTeaModule {
 	 }
 	 
 	 /**
-	  * 新建课程分类
-	  * @param class_name	课程分类名
+	  * 新建项目分类
+	  * @param class_name	项目分类名
+	  * @return
+	  */
+	 public int newItemClass(String class_name){
+		 
+		int result = 0;
+		String sql = "insert into item_class (class_name) value ('"+class_name+"')";
+
+		System.out.println("newItemClass: "+sql);
+		
+		try {
+			result = this.statement.executeUpdate(sql);
+			
+			sql = "select max(classid) as classid from item_class";
+			
+			ResultSet rs = this.statement.executeQuery(sql);
+			int classid = 0;
+			if(rs.next()){
+				classid = rs.getInt("classid");
+			}
+			
+			if(result != 0){
+					
+				result = classid;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	 }
+	 
+	 
+	 /**
+	  * 新建项目
+	  * @param item_name 	项目名
+	  * @param item_profile 项目简介
+	  * @param classid 		项目分类id
+	  * @return
+	  */
+	 public int newItem(String item_name, String item_profile, int classid){
+		 
+		int result = 0;
+		String sql = "insert into train_item (item_name, item_profile, classid) " +
+				"value ('"+item_name+"','"+item_profile+"',"+classid+")";
+
+		System.out.println("newItem: "+sql);
+		
+		try {
+			result = this.statement.executeUpdate(sql);
+			
+			sql = "select max(itemid) as itemid from train_item";
+			
+			ResultSet rs = this.statement.executeQuery(sql);
+			int itemid = 0;
+			if(rs.next()){
+				itemid = rs.getInt("itemid");
+			}
+			
+			if(result != 0){
+					
+				result = itemid;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	 }
+	 
+	 /**
+	  * 新建项目分类
+	  * @param class_name	课程项目名
 	  * @return
 	  */
 	 public int newCourseClass(String class_name){
@@ -548,6 +622,37 @@ public class SpaceTeaModule {
 		}
 		
 		return course_classes;
+	 }
+	 
+	 /**
+	  *  获得所有的项目分类
+	  * @return
+	  */
+	 public ArrayList<HashMap<String, Object>> getAllItemClass(){
+		 
+		int result = 0;
+			
+		String sql = "select * from item_class order by classid desc";
+		
+		System.out.println(sql);
+		ArrayList<HashMap<String, Object>> item_classes = null;
+		HashMap<String, Object> temp = null;
+		try {
+			ResultSet rs = this.statement.executeQuery(sql);
+			item_classes = new ArrayList<HashMap<String, Object>>();
+			
+			while(rs.next()){
+				temp = new HashMap<String, Object>();
+				temp.put("classid", rs.getInt("classid"));
+				temp.put("class_name", rs.getString("class_name"));
+				item_classes.add(temp);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return item_classes;
 	 }
 	 
 	 /**
@@ -614,6 +719,66 @@ public class SpaceTeaModule {
 		 }
 		
 		 return courses;
+	 }
+	 
+	 /**
+	  * 根据项目分类id返回其下的项目
+	  * @param classid
+	  * @return
+	  */
+	 public ArrayList<HashMap<String, Object>> getItemesByClassid(int classid){
+		 
+		 int result = 0;
+			
+		 String sql = "select * from train_item where classid = "+classid+" order by itemid desc";
+		 System.out.println("getItemesByClassid: "+sql);
+		 ArrayList<HashMap<String, Object>> items  = null;
+		 HashMap<String, Object> temp = null;
+		 try {
+			 ResultSet rs = this.statement.executeQuery(sql);
+			 items = new ArrayList<HashMap<String, Object>>();
+				
+			 while(rs.next()){
+				temp = new HashMap<String, Object>();
+				temp.put("itemid", rs.getInt("itemid"));
+				temp.put("item_name", rs.getString("item_name"));
+				temp.put("classid", rs.getInt("classid"));
+				temp.put("item_profile", rs.getString("item_profile"));
+				temp.put("stageid", rs.getString("stageid"));
+				items.add(temp);
+			 }
+		
+		 } catch (SQLException e) {
+			 e.printStackTrace();
+		 }
+		
+		 return items;
+	 }
+	 
+	 /**
+	  * 得到一个项目
+	  * @param itemid	项目id
+	  * @return
+	  */
+	 public HashMap<String, String> getItemByItemid(int itemid){
+		String sql = "select * from train_item where itemid = "+itemid;
+		HashMap<String, String> item = null;
+		try{
+			ResultSet rs = this.statement.executeQuery(sql);
+			
+			if(rs.next()){
+				item = new HashMap<String, String>();
+				item.put("itemid", itemid+"");
+				item.put("item_name", rs.getString("item_name"));
+				item.put("item_profile", rs.getString("item_profile"));
+				item.put("stageid", rs.getString("stageid"));
+				item.put("classid",rs.getInt("classid")+"");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return item;
 	 }
 	 
 	 
@@ -926,6 +1091,28 @@ public class SpaceTeaModule {
 	 }
 	 
 	 /**
+	  * 添加项目到实训方案中
+	  * @param trainid		方案id
+	  * @param itemid			项目id
+	  * @return
+	  */
+	 public int addItem2Plan(int trainid , int itemid){
+		 int result = 0;
+		 
+		 try {
+				 String sql = "update train_plan set itemid = '"+itemid+"' where trainid="+trainid;
+				 System.out.println("addItem2Plan: "+sql);
+				 result = this.statement.executeUpdate(sql);
+				 
+		 } catch (SQLException e) {
+			 e.printStackTrace();
+		 }
+		 
+		 return result;
+		 
+	 }
+	 
+	 /**
 	  * 根据trainid来获取该方案下的所有课程及项目
 	  * @param trainid
 	  */
@@ -1001,12 +1188,12 @@ public class SpaceTeaModule {
 			System.out.println("getCourseByDirect: "+sql);
 			ResultSet rs = this.statement.executeQuery(sql);
 			String[] cids  = null;
-			String[] itemids  = null;
+			int itemid = 0;
 			
 			if(rs.next()){
 				cids = rs.getString("courseId").split(",");
 				System.out.println(rs.getString("courseId"));
-				itemids = rs.getString("itemid").split(",");
+				itemid = rs.getInt("itemid");
 			}
 			
 			//查课程
@@ -1039,7 +1226,47 @@ public class SpaceTeaModule {
 			res = new HashMap<String, Object>();
 			res.put("courses", courses);
 			//TODO查项目
-		
+			
+			sql = "select * from train_item where itemid = "+itemid;
+			rs = this.statement.executeQuery(sql);
+			String[] staids = null;
+			HashMap<String, String> item = null;
+			if(rs.next()){
+				item = new HashMap<String, String>();
+				item.put("itemid", rs.getInt("itemid")+"");
+				item.put("item_name",rs.getString("item_name"));
+				item.put("item_profile", rs.getString("item_profile"));
+				staids = rs.getString("stageid").split(",");
+			}
+			String stageid = "";
+			if(staids != null && staids.length > 0){
+				for(i = 0;i < staids.length;i++){
+					if(i == 0){
+						stageid += staids[i];
+					} else {					
+						stageid += ","+staids[i];
+					}
+				}
+			}
+			
+			sql = "select * from item_stage where staid in ("+stageid+")";
+			rs = this.statement.executeQuery(sql);
+			
+			ArrayList<HashMap<String, Object>> stages = new ArrayList<HashMap<String, Object>>();
+			
+			while(rs.next()){
+				temp = new HashMap<String, Object>();
+				temp.put("staid", rs.getInt("staid"));
+				temp.put("sta_name", rs.getString("sta_name"));
+				temp.put("sta_profile", rs.getString("sta_profile"));
+				temp.put("sta_resc", rs.getString("sta_resc"));
+				stages.add(temp);
+			}
+			
+			//添加该项目到HashMap中
+			res.put("item", item);
+			//添加该项目阶段到HashMap中
+			res.put("stages", stages);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -1097,5 +1324,265 @@ public class SpaceTeaModule {
 		 }catch(Exception e){}
 		 
 		 return rsname;
+	 }
+	 
+	 /**
+	  * 新建一个项目阶段
+	  * @param sta_name		阶段名
+	  * @param sta_profile	阶段简介
+	  * @return
+	  */
+	 public int newStage(String sta_name, String sta_profile){
+		 
+		 int result = 0;
+		 String sql = "insert into item_stage (sta_name, sta_profile) value ('"+sta_name+"','"+sta_profile+"')";
+
+		 System.out.println("newStage: "+sql);
+		
+		 try {
+			 result = this.statement.executeUpdate(sql);
+			
+			 sql = "select max(staid) as staid from item_stage";
+			
+			 ResultSet rs = this.statement.executeQuery(sql);
+			 int staid = 0;
+			 if(rs.next()){
+				 staid = rs.getInt("staid");
+			 }
+			
+			 if(result != 0){
+					
+				 result = staid;
+			 }
+			
+		 } catch (SQLException e) {
+			 e.printStackTrace();
+		 }
+		
+		 return result;
+	 }
+	 
+	 public int addSta2Item(int itemid, int staid){
+		 int result = 0;
+		 String sql = "select stageid from train_item where itemid="+itemid;
+		 System.out.println("addSta2Item: "+sql);
+		 
+		 try {
+			 ResultSet rs = this.statement.executeQuery(sql);
+			 
+			 String stageid = "";	
+			 if(rs.next()){
+				 stageid = rs.getString("stageid");
+			 }
+			 
+			 //将字符串以逗号分开为数组
+			 String[] staids = stageid.split(",");
+			 System.out.println(stageid);
+			 
+			 if(staids != null && staids.length > 0){
+				 stageid = "";
+				 for(int i = 0;i < staids.length;i++){
+					 if(staids[i].equals(staid + "")) continue;   //已经上传了就不再上传了
+					 if(i == 0){
+						 stageid += staids[i].trim();
+					 } else {
+						 stageid += ","+staids[i].trim();
+					 }					 
+				 }
+				 //加上当前这个资源
+				 stageid += ","+staid;
+				 sql = "update train_item set stageid = '"+stageid+"' where itemid="+itemid;
+				 result = this.statement.executeUpdate(sql);
+			 }
+			 
+		 } catch (SQLException e) {
+			 e.printStackTrace();
+		 }
+		 
+		 return result;
+		 
+	 }
+	 
+	 /**
+	  * 根据itemid 返回该项目下的所有项目阶段
+	  * @param itemid
+	  */
+	 public ArrayList<HashMap<String, Object>> getStagesByItemid(int itemid){
+		ArrayList<HashMap<String, Object>> stages  = null;
+		HashMap<String, Object> temp = null;
+		try {
+			
+			//获得资源的所有id	
+			String sql = "select stageid from train_item where itemid = "+itemid;
+			System.out.println("getStagesByItemid: "+sql);
+			ResultSet rs = this.statement.executeQuery(sql);
+			String[] staids  = null;
+			if(rs.next()){
+				staids = rs.getString("stageid").split(",");
+			}
+			
+			String staidIn = "";
+			//如果项目阶段id为空，则返回null
+			if(!(staids != null && staids.length > 0)){
+				return null;
+			}
+			int i;
+			for(i = 0;i < staids.length;i++){
+				if(i == 0){
+					staidIn += staids[i];
+				} else {					
+					staidIn += ","+staids[i];
+				}
+			}
+			
+			sql = "select * from item_stage where staid in ("+staidIn+")";
+			System.out.println("getStagesByItemid: "+sql);
+			rs = this.statement.executeQuery(sql);
+			
+			stages = new ArrayList<HashMap<String, Object>>();
+			
+			while(rs.next()){
+				temp = new HashMap<String, Object>();
+				temp.put("staid", rs.getInt("staid"));
+				temp.put("sta_name", rs.getString("sta_name"));
+				temp.put("sta_profile", rs.getString("sta_profile"));
+				temp.put("sta_resc", rs.getString("sta_resc"));
+				stages.add(temp);
+			}
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+				
+		return stages;
+	 
+	 }
+	 
+	 /**
+	  * 根据staid 返回该阶段
+	  * @param staid	项目阶段id
+	  * @return
+	  */
+	 public HashMap<String,String> getStageByStaid(int staid){
+		 String sql = "select * from item_stage where staid = "+staid;
+		 HashMap<String, String> stage = null;
+		 try{
+			 ResultSet rs = this.statement.executeQuery(sql);
+			 if(rs.next()){
+				 stage = new HashMap<String, String>();
+				 stage.put("staid", staid+"");
+				 stage.put("sta_name", rs.getString("sta_name"));
+				 stage.put("sta_profile", rs.getString("sta_profile"));
+				 stage.put("sta_resc", rs.getString("sta_resc"));
+			 }
+			 
+		 }catch(Exception e){
+			 e.printStackTrace();
+		 }
+		 
+		 return stage;
+	 }
+	 
+	 /**
+	  * 添加资源到项目阶段中
+	  * @param rsid
+	  * @param staid
+	  * @return
+	  */
+	 public int addRs2Stage(int rsid, int staid){
+		 int result = 0;
+		 String sql = "select sta_resc from item_stage where staid="+staid;
+		 System.out.println("addRs2Stage: "+sql);
+		 
+		 try {
+			 ResultSet rs = this.statement.executeQuery(sql);
+			 
+			 String sta_resc = "";	
+			 if(rs.next()){
+				 sta_resc = rs.getString("sta_resc");
+			 }
+			 
+			 //将字符串以逗号分开为数组
+			 String[] resids = sta_resc.split(",");
+			 System.out.println(sta_resc);
+			 
+			 if(resids != null && resids.length > 0){
+				 sta_resc = "";
+				 for(int i = 0;i < resids.length;i++){
+					 if(resids[i].equals(rsid + "")) continue;   //已经上传了就不再上传了
+					 if(i == 0){
+						 sta_resc += resids[i].trim();
+					 } else {
+						 sta_resc += ","+resids[i].trim();
+					 }					 
+				 }
+				 //加上当前这个资源
+				 sta_resc += ","+rsid;
+				 sql = "update item_stage set sta_resc = '"+sta_resc+"' where staid="+staid;
+				 result = this.statement.executeUpdate(sql);
+			 }
+			 
+		 } catch (SQLException e) {
+			 e.printStackTrace();
+		 }
+		 
+		 return result;
+		 
+	 }
+	 
+	 /**
+	  * 根据staid，返回该项目阶段下的所有资源
+	  * @param staid
+	  */
+	 public ArrayList<HashMap<String, Object>> getResourceByStaid(int staid){
+		ArrayList<HashMap<String, Object>> resources  = null;
+		HashMap<String, Object> temp = null;
+		try {
+			
+			//获得资源的所有id	
+			String sql = "select sta_resc from item_stage where staid = "+staid;
+			System.out.println("getResourceByCid: "+sql);
+			ResultSet rs = this.statement.executeQuery(sql);
+			String[] rsids  = null;
+			if(rs.next()){
+				rsids = rs.getString("sta_resc").split(",");
+			}
+			
+			String rsidIn = "";
+			int i;
+			for(i = 0;i < rsids.length;i++){
+				if(i == 0){
+					rsidIn += rsids[i];
+				} else {					
+					rsidIn += ","+rsids[i];
+				}
+			}
+			
+			sql = "select * from resource where rsid in ("+rsidIn+")";
+			System.out.println("getResourceByStaid: "+sql);
+			rs = this.statement.executeQuery(sql);
+			
+			resources = new ArrayList<HashMap<String, Object>>();
+			
+			while(rs.next()){
+				temp = new HashMap<String, Object>();
+				temp.put("rsid", rs.getInt("rsid"));
+				temp.put("rsname", rs.getString("rsname"));
+				temp.put("rsprofile", rs.getString("rsprofile"));
+				temp.put("rssize", rs.getString("rssize"));
+				temp.put("rsurl", rs.getString("rsurl"));
+				temp.put("rsuser", rs.getString("rsuser"));
+				temp.put("ctime", rs.getLong("ctime"));
+				temp.put("classid", rs.getInt("classid"));
+				temp.put("task", rs.getInt("task"));
+				resources.add(temp);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return resources;
+
 	 }
 }

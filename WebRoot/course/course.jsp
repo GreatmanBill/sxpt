@@ -63,7 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 			}catch(Exception e){
 				e.printStackTrace();
-			System.out.println(33333);}
+			}
 			System.out.println(linkHTML+"llllllllllllllll");
 		 %>
 		var type = <%=type%>;

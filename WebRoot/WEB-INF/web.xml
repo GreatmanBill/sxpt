@@ -158,4 +158,50 @@
     <servlet-name>DownloadServlet</servlet-name>
     <url-pattern>/download</url-pattern>
   </servlet-mapping>
+  
+  <!-- 项目 -->
+  <servlet>
+    <servlet-name>NewItemClassServlet</servlet-name>
+    <servlet-class>com.sxpt.controller.NewItemClassServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewItemClassServlet</servlet-name>
+    <url-pattern>/newItemClass</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>NewItemServlet</servlet-name>
+    <servlet-class>com.sxpt.controller.NewItemServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewItemServlet</servlet-name>
+    <url-pattern>/newItem</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>NewStageServlet</servlet-name>
+    <servlet-class>com.sxpt.controller.NewStageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewStageServlet</servlet-name>
+    <url-pattern>/newStage</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AddRsToStageServelt</servlet-name>
+    <servlet-class>com.sxpt.controller.AddRsToStageServelt</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddRsToStageServelt</servlet-name>
+    <url-pattern>/addRsToStage</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AddItemToPlanServlet</servlet-name>
+    <servlet-class>com.sxpt.controller.AddItemToPlanServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddItemToPlanServlet</servlet-name>
+    <url-pattern>/addItemToPlan</url-pattern>
+  </servlet-mapping>
 </web-app>
