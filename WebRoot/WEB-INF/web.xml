@@ -164,4 +164,13 @@
     <servlet-name>MakePlanServlet</servlet-name>
     <url-pattern>/makePlan</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>DownloadServlet</servlet-name>
+    <servlet-class>com.sxpt.controller.DownloadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DownloadServlet</servlet-name>
+    <url-pattern>/download</url-pattern>
+  </servlet-mapping>
 </web-app>
