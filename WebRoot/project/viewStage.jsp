@@ -4,20 +4,19 @@
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-	int classid = 0;
-	String class_name = "";
-	int cid = 0;
-	String cname = "";
+	int staid = 0;
 	try{
-		cid = Integer.parseInt(request.getParameter("cid"));			
+		staid = Integer.parseInt(request.getParameter("staid"));			
 	}catch(Exception e){}
 	
 	SpaceTeaModule spaceTM = new SpaceTeaModule();
-	String cprofile = "";
+	String sta_name = "";
+	String sta_profile = "";
+	
 	try{
-		HashMap<String,Object> course = spaceTM.getCourseByCid(cid);
-		cname = course.get("cname").toString();
-		cprofile = course.get("cprofile").toString();
+		HashMap<String,String> stage = spaceTM.getStageByStaid(staid);
+		sta_name = stage.get("sta_name");
+		sta_profile = stage.get("sta_profile");
 	}catch(Exception e){}
 %>
 
@@ -26,7 +25,7 @@
   <head>
     <base href="<%=basePath%>">
     
-    <title>查看课程</title>
+    <title>查看项目阶段</title>
 	<link rel="stylesheet" type="text/css" href="css/space.css">
 	<link rel="stylesheet" type="text/css" href="css/table.css">
 	<link rel="stylesheet" type="text/css" href="css/rsManage.css">
@@ -34,13 +33,13 @@
   
   <body>
 		<div id="rsManage">
-			<h2>【课程名】<%=cname %></h2>
-			<p class="cprofile" style="margin:20px 0 0 0; width:85%;">【课程简介】<%=cprofile %></p>
+			<h2>【项目阶段】<%=sta_name %></h2>
+			<p class="cprofile" style="margin:20px 0 0 0; width:85%;">【阶段简介】<%=sta_profile %></p>
 			<%
 				String downloadHTML = "";
 				String studyHTML = "";
 					try{
-						ArrayList<HashMap<String, Object>> resources = spaceTM.getResourceByCid(cid);
+						ArrayList<HashMap<String, Object>> resources = spaceTM.getResourceByStaid(staid);
 						int i; 
 						String nCname = "";
 						int nCid = 0;

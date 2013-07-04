@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page import="com.sxpt.classes.*"%>
+<%@ page import="com.sxpt.module.*"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -8,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<head>
 		<base href="<%=basePath%>">
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-		<title>软件实训——个人空间</title>
+		<title>软件实训——项目实训</title>
 
 		<link rel="StyleSheet" href="css/dtree.css" type="text/css" />
 		<script type="text/javascript" src="js/dtree.js"></script>
@@ -26,20 +28,68 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		d = new dTree('d');
 		
 		<%
-			HashMap<String ,Object> user = (HashMap<String ,Object>)session.getAttribute("user");
-			int type = Integer.parseInt(user.get("type").toString());
+			int type = 0;
+			String t_direct = "";
+			String linkHTML = "";
+			
+			int itemid = 0;
+			String item_name = "";
+			String item_profile = "";
+			try{
+				HashMap<String ,Object> user = (HashMap<String ,Object>)session.getAttribute("user");
+				type = Integer.parseInt(user.get("type").toString());
+				
+				int bid = 0;
+				if(type == 0){//学生
+					Student stu = (Student)user.get("student");
+					bid = stu.getBid();
+					t_direct = stu.getT_direct();
+					
+				} else {	  //教师
+					Teacher tea = (Teacher)user.get("teacher");
+					t_direct = tea.getT_direct();
+				}
+				
+				System.out.println("t_direct:"+t_direct);
+				SpaceTeaModule spaceTM = new SpaceTeaModule();
+				HashMap<String, Object> res = spaceTM.getCourseAndItemByDirect(t_direct);
+				
+				System.out.println(res);
+				
+				HashMap<String, String> item = (HashMap<String, String>)res.get("item");
+				
+				itemid = Integer.parseInt(item.get("itemid"));
+				item_name = item.get("item_name");
+				item_profile = item.get("item_profile");
+				
+				ArrayList<HashMap<String, Object>> stages = (ArrayList<HashMap<String, Object>>)res.get("stages");
+				HashMap<String, Object> temp = null;
+				System.out.println("size:"+stages.size());
+				for(int i = 0;i < stages.size();i++){
+					temp = stages.get(i);
+					int staid = Integer.parseInt(temp.get("staid").toString());
+					String sta_name = temp.get("sta_name").toString();
+					linkHTML += "d.add("+(i + 3)+",1,'"+sta_name+"','project/viewStage.jsp?staid="+staid+"','','right');";
+				}
+				
+				
+				
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			System.out.println(linkHTML+"llllllllllllllll");
 		 %>
-		var type = <%=type%>;
 		
 		//学生
-		d.add(0,-1,'JAVA方向');
-		d.add(1,0,'项目首页','example01.html');
-		d.add(2,1,'项目启动','example01.html');
+		d.add(0,-1,'<%=t_direct %>');
+		d.add(1,0,'<%=item_name %>',"<% out.print("project/itemIndex.jsp?itemid="+itemid); %>",'','right');
+		d.add(2,1,"项目首页","<% out.print("project/itemIndex.jsp?itemid="+itemid); %>",'','right')
+		/*d.add(2,1,'项目启动','example01.html','','');
 		d.add(3,1,'需求分析','example01.html');
 		d.add(4,1,'系统设计','example01.html');
 		d.add(5,1,'代码实现','example01.html');
-		d.add(6,1,'项目总结','example01.html');
-		
+		d.add(6,1,'项目总结','example01.html');*/
+		<%=linkHTML %>
 		document.write(d);
 
 		//-->
