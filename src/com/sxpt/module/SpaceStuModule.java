@@ -72,4 +72,9 @@ public class SpaceStuModule {
 		 return result; 
 		 
 	 }
+	public int selectStuGrade(){
+		
+		
+		return 0;	
+	}
 }
