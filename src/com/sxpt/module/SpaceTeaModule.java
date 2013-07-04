@@ -1079,20 +1079,11 @@ public class SpaceTeaModule {
 	 public int modifyTeaInfo(int tid,String tpsw) throws SQLException{
 			int result = 0;
 			System.out.println("modifyInfo");
-			//String sql = "select Sid from teacher where tid = '"+tid+"'";
-			//System.out.println("sql++++"+sql);
-			//ResultSet rs = this.statement.executeQuery(sql);
-			//int sid = 0;
-			//if(rs.next()){
-			//	sid = rs.getInt("sid");
-			//	System.out.println(sid);
-			//}
-
+	
 			 String sql2 = "update teacher set tpsw = '"+tpsw+"'" +
 		 		"where tid = "+tid;
 			 result = this.statement.executeUpdate(sql2);
-			 System.out.println(result);
-			 
+			 System.out.println(result);			 
 			 return result; 
 			 
 		 }
