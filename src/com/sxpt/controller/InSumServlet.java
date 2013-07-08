@@ -1,7 +1,6 @@
 package com.sxpt.controller;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 
@@ -12,24 +11,38 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.mysql.jdbc.Statement;
-
-public class InSumServlet extends HttpServlet{
-	private Statement statement;
+import com.sxpt.module.SpaceTeaModule;
+import com.sxpt.module.SxptModule;
 	
-	public void InSumServlet() throws SQLException{
-		int Insum = 0;
-	 	String sql = "select rid ,SUM(in_grade) as Insum from in_report GROUP BY rid";
-		ResultSet rs = this.statement.executeQuery(sql);
-		int rid = 0;
-		int insum = 0;
-		if(rs.next()){
-			rid = rs.getInt("rid");
-			insum = rs.getInt("Insum");
-		}
-		System.out.println("rid     :"+rid);
-		System.out.println("Insum    :"+Insum);
+/**
+ * 该类用于教师针对学生课内实训的成绩的添加
+ * @author zhanglz
+ *
+ */
+public class InSumServlet extends HttpServlet{
+	SpaceTeaModule spacetM = null;
+	public InSumServlet(){
+		this.spacetM = new SpaceTeaModule();
 
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 		
-		}
+		doPost(req, resp);
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+
+			try {
+				spacetM.InSumServlet();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				
+			}
+	
+	}
 }

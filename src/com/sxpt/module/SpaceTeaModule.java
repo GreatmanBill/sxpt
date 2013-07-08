@@ -1624,4 +1624,23 @@ public class SpaceTeaModule {
 		return resources;
 
 	 }
+	 /**
+	  * 课内成绩求和
+	  * @author zhanglz
+	  * @throws SQLException
+	  */
+	 public void InSumServlet() throws SQLException{
+			int rid = 0;
+			int insum = 0;
+		 	String sql = "select rid ,SUM(in_grade) as Insum from in_report GROUP BY rid";
+			ResultSet rs = this.statement.executeQuery(sql);
+			if(rs.next()){
+				rid = rs.getInt("rid");
+				insum = rs.getInt("Insum");
+			}
+			System.out.println("rid     :"+rid);
+			System.out.println("Insum    :"+insum);	
+			sql = "update report set in_sum = '"+insum+"' where rid="+rid;
+			int rs1 = this.statement.executeUpdate(sql);
+	}
 }
