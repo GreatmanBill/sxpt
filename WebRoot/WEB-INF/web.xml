@@ -16,6 +16,14 @@
   	<url-pattern>/updateInReport</url-pattern>
   </servlet-mapping> 
   <servlet>
+  	<servlet-name>InSumServlet</servlet-name>
+  	<servlet-class>com.sxpt.controller.InSumServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>InSumServlet</servlet-name>
+  	<url-pattern>/InSumServlet</url-pattern>
+  </servlet-mapping> 
+  <servlet>
   	<servlet-name>UpdateTeaInfo</servlet-name>
   	<servlet-class>com.sxpt.controller.UpdateTeaInfo</servlet-class>
   </servlet>

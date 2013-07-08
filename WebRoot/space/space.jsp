@@ -47,6 +47,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			d.add(2,1,'个人信息','space/personalTinfo.jsp');
 			d.add(3,1,'成绩单','example01.html');
 			d.add(4,1,'实训总结','example01.html');
+			d.add(5,1,'修改课外成绩','space/updateOutSum.jsp');
+			d.add(6,1,'修改课内成绩','space/updateInReport.jsp');
+			d.add(7,1,'修改课内总成绩','space/updateInSum.jsp');
 		}
 		document.write(d);
 

@@ -40,6 +40,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
   <body>
-   <a href = "inSumServlet.java">updateInSum</a>
+   <a href = "InSumServlet">updateInSum</a>
   </body>
 </html>
