@@ -72,9 +72,24 @@ public class SpaceStuModule {
 		 return result; 
 		 
 	 }
-	public int selectStuGrade(){
-		
-		
-		return 0;	
+	public int selectStuInsum(String sno) throws SQLException{
+		int result = 0;
+		String sql = "select in_sum from report where sno = '"+sno+"'";	
+		ResultSet rs = this.statement.executeQuery(sql);
+		while(rs.next()){
+			
+			result = rs.getInt("in_sum");
+		}
+		return result;	
+	}
+	public int selectStuOutsum(String sno) throws SQLException{
+		int result = 0;
+		String sql = "select out_sum from report where sno = '"+sno+"'";	
+		ResultSet rs = this.statement.executeQuery(sql);
+		while(rs.next()){
+			
+			result = rs.getInt("out_sum");
+		}
+		return result;	
 	}
 }

@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ page import="com.sxpt.classes.*" %>
 <%@ page import="com.sxpt.module.*" %>
 <%
@@ -36,6 +36,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				int tid = 0;			//所属教师id
 				String t_direct = "";	//实训方向
 				int type = 0;			//类别，学生为0
+				int insum = 0;			//课内总成绩
+				int outsum = 0;			//课外总成绩
 				
 				SpaceStuModule spaceSM = new SpaceStuModule();	//学生数据库对象
 				SpaceTeaModule spaceTM = new SpaceTeaModule();	//教师数据库对象
@@ -66,8 +68,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					}
 					bname = spaceSM.selectbname(bid);
 				 	tname = spaceTM.selectTname(tid);
-				
-	
+				 	insum = spaceSM.selectStuInsum(sno);
+				 	outsum = spaceSM.selectStuOutsum(sno);
+				 	
+
  %>
+ 	<label>姓名：</label><%= username%></br>
+ 	<label>所属批次：</label><%=bname %></br>
+ 	<label>所属教师：</label><%=tname %></br>
+ 	<label>课内成绩：</label><%=insum %></br>
+ 	<label>课外成绩：</label><%=outsum %>
   </body>
 </html>
