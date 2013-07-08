@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   </head>
   
-  <body>
+  <body style="padding:40px 0 0 60px;">
 
 		<%	
 				String bname = "";
@@ -78,15 +78,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				 tname = spaceTM.selectTname(tid); 	
 					
 	%>
-	当前用户:<span><%=username %></span>　<span><%=identity %></span></br>
-	学号:<span><%= sno %></span></br>
+	当前用户:<span><%=username %></span>　<span><%=identity %></span></br></br>
+	学号:<span><%= sno %></span></br></br>
+	所属批次：<span><%= bname %></span></br></br>
+	所属教师:<span><%= tname %></span>
 	<form action = "personalSinfo" method = "post">
-							<input type = "hidden" name = "sno" value = <%=sno %>></br>
-		<label>新密码：</label><input name = "spsw" type = "password"/></br>
-		<label>邮&nbsp箱：</label><input name = "smail" type = "text" value = <%=smail %>></br>
-							<input name = "submit" type = "submit" value = "修改"/>
+		<input type = "hidden" name = "sno" value = <%=sno %>/></br></br>
+		<label>新密码：</label><input name = "spsw" type = "password"/></br></br>
+		<label>邮&nbsp箱：</label><input name = "smail" type = "text" value = <%=smail %>></br></br>
+		<input style="display:inline-block;width:60px;height:25px;font-size:16px;line-height:25px;" name = "submit" type = "submit" value = "修改"/>
 	</form>
-	所属批次：<span><%= bname %></span></br>
-	所属教师:<span><%= tname %></span></br>
+	
   </body>
 </html>

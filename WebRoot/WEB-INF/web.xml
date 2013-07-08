@@ -227,4 +227,49 @@
     <servlet-name>AddItemToPlanServlet</servlet-name>
     <url-pattern>/addItemToPlan</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>NewMemGroupServlet</servlet-name>
+    <servlet-class>com.sxpt.controller.NewMemGroupServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewMemGroupServlet</servlet-name>
+    <url-pattern>/newMemGroup</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>AddMemToGroupServlet</servlet-name>
+    <servlet-class>com.sxpt.controller.AddMemToGroupServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddMemToGroupServlet</servlet-name>
+    <url-pattern>/addMemToGroup</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>SetLeaderServlet</servlet-name>
+    <servlet-class>com.sxpt.controller.SetLeaderServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SetLeaderServlet</servlet-name>
+    <url-pattern>/setLeader</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>NewPartServlet</servlet-name>
+    <servlet-class>com.sxpt.controller.NewPartServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewPartServlet</servlet-name>
+    <url-pattern>/newPart</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>NewFunServlet</servlet-name>
+    <servlet-class>com.sxpt.controller.NewFunServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewFunServlet</servlet-name>
+    <url-pattern>/newFun</url-pattern>
+  </servlet-mapping>
 </web-app>

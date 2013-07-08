@@ -65,30 +65,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				ArrayList<HashMap<String, Object>> stages = (ArrayList<HashMap<String, Object>>)res.get("stages");
 				HashMap<String, Object> temp = null;
 				System.out.println("size:"+stages.size());
-				for(int i = 0;i < stages.size();i++){
+				int i = 0;
+				for(;i < stages.size();i++){
 					temp = stages.get(i);
 					int staid = Integer.parseInt(temp.get("staid").toString());
 					String sta_name = temp.get("sta_name").toString();
 					linkHTML += "d.add("+(i + 3)+",1,'"+sta_name+"','project/viewStage.jsp?staid="+staid+"','','right');";
 				}
-				
-				
+				if(type == 1){
+					linkHTML += "d.add("+(i + 3)+",0,'项目成员','project/memManage.jsp','','right');";
+				} else if(type == 0){
+					linkHTML += "d.add("+(i + 3)+",0,'项目成员','project/member.jsp','','right');";
+				}
+				i++;
+				if(type == 1){
+		 			linkHTML += "d.add("+(i + 3)+",0,'任务分配','project/taskDistribute.jsp','','right');";
+		 		} else {
+		 			linkHTML += "d.add("+(i + 3)+",0,'任务分配','project/stuTaskDistribute.jsp','','right');";
+		 		}
 				
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-			System.out.println(linkHTML+"llllllllllllllll");
 		 %>
 		
 		//学生
 		d.add(0,-1,'<%=t_direct %>');
 		d.add(1,0,'<%=item_name %>',"<% out.print("project/itemIndex.jsp?itemid="+itemid); %>",'','right');
-		d.add(2,1,"项目首页","<% out.print("project/itemIndex.jsp?itemid="+itemid); %>",'','right')
-		/*d.add(2,1,'项目启动','example01.html','','');
-		d.add(3,1,'需求分析','example01.html');
-		d.add(4,1,'系统设计','example01.html');
-		d.add(5,1,'代码实现','example01.html');
-		d.add(6,1,'项目总结','example01.html');*/
+		d.add(2,1,"项目首页","<% out.print("project/itemIndex.jsp?itemid="+itemid); %>",'','right');	
 		<%=linkHTML %>
 		document.write(d);
 

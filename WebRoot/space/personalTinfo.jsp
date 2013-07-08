@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   </head>
   
-  <body>
+  <body style="padding:40px 0 0 60px;">
 
 		<%	
 				String bname = "";
@@ -79,12 +79,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				 tname = spaceTM.selectTname(tid); 	
 					
 	%>
-	当前用户:<span><%=username %></span>　<span><%=identity %></span></br>
-	<form action = "personalTinfo" method = "post">
-							<input type = "hidden" name = "tid" value = <%=tid %>></br>
-		<label>新密码：</label><input name = "tpsw" type = "password"/></br>		
-							<input name = "submit" type = "submit" value = "修改"/>
-	</form>
+	当前用户:<span><%=username %></span>　<span><%=identity %></span></br></br>
 	实训方向:<span><%= t_direct %></span></br>
+	<form action = "personalTinfo" method = "post">
+		<input type = "hidden" name = "tid" value = <%=tid %>></br>
+		<label>新密码：</label><input name = "tpsw" type = "password"/></br>		
+		<input style="display:inline-block;width:60px;height:25px;font-size:16px;line-height:25px;" name = "submit" type = "submit" value = "修改"/>
+	</form>
+	
   </body>
 </html>

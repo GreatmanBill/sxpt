@@ -15,7 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</head>
 	
 		<frameset rows="100,*">
-			<frame name="top" src="top.jsp"/> 
+			<frame name="top" src="top.jsp" scrolling="no"/> 
 			<frameset cols="250,*">
 				<frame name="left" src="space/space.jsp"/>
 				<frame name="right" src="right.jsp" name="right"/> 

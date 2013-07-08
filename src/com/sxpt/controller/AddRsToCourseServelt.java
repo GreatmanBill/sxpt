@@ -168,12 +168,13 @@ public class AddRsToCourseServelt extends HttpServlet{
 				return ;
 			}
 			System.out.println(user.toString());
-			if(user.get("type").toString().equals("1")){//教师或管理员
-				Teacher tea = (Teacher)user.get("teacher");
-				rsuser = tea.getTname();
-			} else {
+			if(user.get("type").toString().equals("0")){
 				Student stu = (Student)user.get("student");
 				rsuser = stu.getSname();
+				
+			} else {//教师或管理员
+				Teacher tea = (Teacher)user.get("teacher");
+				rsuser = tea.getTname();
 			}
 			System.out.println("fileName:"+fileName+" rsurl:"+rsurl+" rsSize:"+rsSize+" rsuser:"+rsuser+" rsprofile:"+rsprofile);
 			

@@ -80,7 +80,7 @@
 								taskStr = "学习";
 							}
 							
-							resHTML += "<tr class='cname'><td>"+taskStr+"</td><td class='first'>【资源】"+rsname+"</td><td>"+rsuser+"</td><td>"+day+"</td><td><a href='download/"+rsurl+"'>下载</a></td><td>删除</td></tr>";
+							resHTML += "<tr class='cname'><td>"+taskStr+"</td><td class='first'>【资源】"+rsname+"</td><td>"+rsuser+"</td><td>"+day+"</td><td><a href='download?rsurl="+rsurl+"'>下载</a></td><td>删除</td></tr>";
 							resHTML += "<tr class='profile' ><td colspan='6' class='first'><p>【文件大小】："+rssize+"</p><p>【资源描述】"+rsprofile+"</p></td></tr>";
 						}
 					}catch(Exception e){} 
