@@ -14,7 +14,16 @@ public class Student implements Serializable {
 	private int tid;			//所属教师id
 	private String t_direct;	//实训方向
 	private int type;			//类别，学生为0
+	private int role;			//学生角色，1为组长，0为成员
 	
+	public int getRole() {
+		return role;
+	}
+
+	public void setRole(int role) {
+		this.role = role;
+	}
+
 	public Student(){}
 	
 	public Student(int sid, String sno, String sname, String spsw,

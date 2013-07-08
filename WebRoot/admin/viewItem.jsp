@@ -93,7 +93,7 @@
 				<form action="newStage" method="post">
 					<fieldset>
 					<legend>新建项目阶段</legend>
-					<input type="hidden" name="classid" value="<%="classid" %>"/>
+					<input type="hidden" name="classid" value="<%=classid %>"/>
 					<input type="hidden" name="class_name" value="<%=class_name %>"/>
 					<input type="hidden" name="itemid" value="<%=itemid %>"/>
 					<input type="hidden" name="item_name" value="<%=item_name %>"/>

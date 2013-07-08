@@ -220,4 +220,25 @@ public class SxptModule {
 		return news;
 	}
 	
+	/**
+	 * 根据方向名获得方向id
+	 * @param t_direct		方向名
+	 * @return
+	 */
+	public int getDidByDname(String t_direct){
+		String sql = "select max(did) as did from train_dr";
+		int did = 0;
+		try{
+			ResultSet rs = this.statement.executeQuery(sql);
+			
+			if(rs.next()){
+				did = rs.getInt("did");
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return did;
+	}
 }

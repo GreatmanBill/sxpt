@@ -51,6 +51,8 @@ public class NewStageServlet extends HttpServlet {
 			b = sta_profile.getBytes("ISO-8859-1");
 			sta_profile = new String(b, "UTF-8");
 			
+			System.out.println(classid+" "+class_name+" "+itemid+" "+item_name+" "+sta_name+" "+sta_profile);
+			
 			int insertid = this.spaceTM.newStage(sta_name, sta_profile);
 			
 			
@@ -69,6 +71,7 @@ public class NewStageServlet extends HttpServlet {
 			 resp.sendRedirect("admin/viewItem.jsp?itemid="+itemid+"&item_name="+item_name+"&classid="+classid+"&class_name="+class_name);
 		 
 		}catch(Exception e){
+			e.printStackTrace();
 			 req.getSession().setAttribute("message", "新建项目阶段失败");
 			 resp.sendRedirect("admin/viewItem.jsp?itemid="+itemid+"&item_name="+item_name+"&classid="+classid+"&class_name="+class_name);
 		}

@@ -14,21 +14,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<body>
 		<div id="nav-top">
 			<h2>软件实训平台</h2>
-			<div id="nav-main">
-				<ul>
-					<span>|</span><li><a href="space/space.jsp" target="left">个人空间</a></li>
-					<span>|</span><li><a href="course/course.jsp" target="left">课程实训</a></li>
-					<span>|</span><li><a href="project/project.jsp" target="left">项目实训</a></li>
-					<span>|</span><li><a href="left.jsp" target="left">管理中心</a></li>
-					<span>|</span>
-				</ul>
-			</div>
 			<%
 				String identity = "学生";
 				String username = "小兵";
+				String li = "";
+				int type = 0;
 				if(session.getAttribute("user") !=null){
 					HashMap<String, Object> user = (HashMap<String, Object>)session.getAttribute("user");
-					int type = Integer.parseInt(user.get("type").toString());
+					type = Integer.parseInt(user.get("type").toString());
 					if(type == 0){
 						identity = "学生";
 					} else if(type == 1){
@@ -44,8 +37,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					} else {
 						Teacher tea = (Teacher)user.get("teacher");
 						username = tea.getTname();
+						li = "<span>|</span><li><a href='left.jsp' target='left'>管理中心</a></li>";
 					}
 				} %>
+			<div id="nav-main">
+				<ul>
+					<span>|</span><li><a href="space/space.jsp" target="left">个人空间</a></li>
+					<span>|</span><li><a href="course/course.jsp" target="left">课程实训</a></li>
+					<span>|</span><li><a href="project/project.jsp" target="left">项目实训</a></li>
+					<%
+						if(type > 0){
+							out.print(li);
+						}
+					%>
+					<span>|</span>
+				</ul>
+			</div>
+			
 			<div id="user">
 				当前用户:<span><%=username %></span>　<span><%=identity %></span>
 				
