@@ -16,7 +16,9 @@
 		class_name = URLDecoder.decode(URLDecoder.decode(class_name));
 		class_name = URLEncoder.encode(URLEncoder.encode(class_name));
 		cid = Integer.parseInt(request.getParameter("cid"));	
-		cname	= request.getParameter("cname");	
+		cname = request.getParameter("cname");
+		byte[] b = cname.getBytes("ISO-8859-1");
+		cname = new String(b, "UTF-8");	
 		
 	}catch(Exception e){}
 	
